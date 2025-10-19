@@ -1,0 +1,248 @@
+﻿@model DemonSlayer.Models.Postulacion
+
+@{
+    ViewData["Title"] = "Editar Propuesta";
+
+    // Obtener información del usuario
+    int userId = 0;
+    int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out userId);
+
+    bool esAdmin = User.IsInRole("Admin");
+    bool esCreador = Model.ConsultorId == userId;
+    bool puedeEditar = esAdmin || esCreador;
+}
+
+@if (!puedeEditar)
+{
+    <div class="alert alert-danger text-center">
+        <h4>🚫 Acceso Denegado</h4>
+        <p>No tienes permisos para editar esta propuesta.</p>
+        <a asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+    </div>
+}
+else
+{
+    <h1>✏️ Editar Propuesta</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- CAMBIO IMPORTANTE: Agregar id="postulacionForm" -->
+            <form asp-action="Edit" id="postulacionForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ConsultorId" />
+                <input type="hidden" asp-for="ProyectoId" />
+                <input type="hidden" asp-for="Fecha" />
+
+                @if (!esAdmin)
+                {
+                    <input type="hidden" asp-for="Aceptada" />
+                }
+
+                <div class="form-group mb-3">
+                    <label asp-for="MontoQ" class="control-label">💰 Presupuesto Propuesto (Q) *</label>
+                    <input asp-for="MontoQ" type="number"
+                           class="form-control"
+                           min="1"
+                           max="9999999.99"
+                           step="0.01"
+                           placeholder="0.00"
+                           id="montoInput" />
+                    <span asp-validation-for="MontoQ" class="text-danger"></span>
+                    <small class="text-muted">Mínimo: Q1.00 - Máximo: Q9,999,999.99</small>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Propuesta" class="control-label">📝 Propuesta Detallada *</label>
+                    <textarea asp-for="Propuesta" class="form-control" rows="6"
+                              maxlength="2000"
+                              placeholder="Describe tu enfoque, metodología, timeline, y por qué eres el indicado para este proyecto..."
+                              id="propuestaInput">@Model.Propuesta</textarea>
+                    <span asp-validation-for="Propuesta" class="text-danger"></span>
+                    <small class="text-muted">
+                        <span id="contadorPropuesta">@Model.Propuesta?.Length</span>/2000 caracteres
+                    </small>
+                </div>
+
+                <!-- Solo Admin puede cambiar el estado de aceptación -->
+                @if (esAdmin)
+                {
+                    <div class="form-group mb-3">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Aceptada" />
+                            ✅ Propuesta Aceptada
+                        </label>
+                        <small class="text-muted d-block">Solo los administradores pueden cambiar este estado</small>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group mb-3">
+                        <label class="control-label">Estado de la Propuesta</label>
+                        <div>
+                            @if (Model.Aceptada)
+                            {
+                                <span class="badge bg-success">✅ Aceptada</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">⏳ Pendiente</span>
+                            }
+                        </div>
+                        <small class="text-muted">El cliente decidirá si acepta tu propuesta</small>
+                    </div>
+                }
+
+                <div class="form-group mb-3">
+                    <input type="submit" value="💾 Guardar Cambios" class="btn btn-primary" />
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">👀 Ver Detalles</a>
+                    <a asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Panel informativo -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>ℹ️ Información de la Propuesta</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>ID de la Propuesta:</strong> @Model.Id</p>
+                    <p><strong>Consultor:</strong> @Model.ConsultorId</p>
+                    <p><strong>Proyecto:</strong> @Model.ProyectoId</p>
+                    <p>
+                        <strong>Estado:</strong>
+                        <span class="badge @(Model.Aceptada ? "bg-success" : "bg-warning")">
+                            @(Model.Aceptada ? "✅ Aceptada" : "⏳ Pendiente")
+                        </span>
+                    </p>
+                    <p><strong>Fecha de Postulación:</strong> @Model.Fecha.ToString("dd/MM/yyyy HH:mm")</p>
+
+                    <div class="alert alert-info mt-3">
+                        <small>
+                            <strong>📋 Límites establecidos:</strong><br>
+                            • Monto: Q1.00 - Q9,999,999.99<br>
+                            • Propuesta: 2000 caracteres máximo
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Función para contador de caracteres
+        function setupContador(inputId, contadorId, maxLength) {
+            const input = document.getElementById(inputId);
+            const contador = document.getElementById(contadorId);
+
+            if (input && contador) {
+                // Actualizar contador inicial
+                contador.textContent = input.value.length;
+
+                // Actualizar en tiempo real
+                input.addEventListener('input', function() {
+                    const caracteres = this.value.length;
+                    contador.textContent = caracteres;
+
+                    // Cambiar color cuando se acerca al límite
+                    if (caracteres > maxLength * 0.8) {
+                        contador.className = 'text-warning';
+                    } else if (caracteres > maxLength * 0.9) {
+                        contador.className = 'text-danger';
+                    } else {
+                        contador.className = 'text-muted';
+                    }
+
+                    // Prevenir que exceda el límite
+                    if (caracteres > maxLength) {
+                        this.value = this.value.substring(0, maxLength);
+                        contador.textContent = maxLength;
+                    }
+                });
+            }
+        }
+
+        // Validación del monto
+        function validarMonto(input) {
+            let valor = parseFloat(input.value);
+
+            if (isNaN(valor)) {
+                input.value = '';
+                return false;
+            }
+
+            // Limitar a 2 decimales
+            input.value = valor.toFixed(2);
+
+            // Validar rango
+            if (valor < 1) {
+                input.value = '1.00';
+            } else if (valor > 9999999.99) {
+                input.value = '9999999.99';
+            }
+
+            return true;
+        }
+
+        // Configurar validaciones
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar contador para propuesta
+            setupContador('propuestaInput', 'contadorPropuesta', 2000);
+
+            // Validar monto en tiempo real
+            const montoInput = document.getElementById('montoInput');
+            montoInput.addEventListener('blur', function() {
+                validarMonto(this);
+            });
+
+            // Validación antes de enviar
+            document.getElementById('postulacionForm').addEventListener('submit', function(e) {
+                const monto = document.getElementById('montoInput').value;
+                const propuesta = document.getElementById('propuestaInput').value;
+
+                // Validar monto
+                const montoNum = parseFloat(monto);
+                if (isNaN(montoNum) || montoNum < 1 || montoNum > 9999999.99) {
+                    e.preventDefault();
+                    alert('El monto debe estar entre Q1.00 y Q9,999,999.99');
+                    return false;
+                }
+
+                // Validar longitud de propuesta
+                if (propuesta.length > 2000) {
+                    e.preventDefault();
+                    alert('La propuesta no puede tener más de 2000 caracteres.');
+                    return false;
+                }
+
+                // Validar campos requeridos
+                if (propuesta.trim() === '') {
+                    e.preventDefault();
+                    alert('La propuesta es requerida.');
+                    return false;
+                }
+
+                if (monto.trim() === '') {
+                    e.preventDefault();
+                    alert('El monto propuesto es requerido.');
+                    return false;
+                }
+
+                // Validar contenido mínimo en propuesta
+                if (propuesta.trim().length < 50) {
+                    e.preventDefault();
+                    alert('Por favor, escribe una propuesta más detallada (mínimo 50 caracteres).');
+                    return false;
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,97 @@
+﻿@model IEnumerable<DemonSlayer.Models.Usuario>
+
+@{
+    ViewData["Title"] = "👥 Usuarios";
+
+    // Obtener el ID del usuario actual
+    int userId = 0;
+    int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out userId);
+
+    // Verificar rol
+    bool esAdmin = User.IsInRole("Admin");
+}
+
+<h1>👥 Usuarios</h1>
+
+@if (esAdmin)
+{
+    <p>
+        <a asp-controller="Usuarios" asp-action="Create" class="btn btn-primary">➕ Crear Nuevo Usuario</a>
+    </p>
+}
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            var esMiPerfil = usuario.IdUsuario == userId;
+
+            <tr>
+                <td>
+                    @usuario.NombreCompleto
+                    @if (esMiPerfil)
+                    {
+                        <span class="badge bg-primary">Tú</span>
+                    }
+                </td>
+                <td>@usuario.Correo</td>
+                <td>
+                    <span class="badge
+                        @(usuario.Rol == "Admin" ? "bg-danger" :
+                          usuario.Rol == "Cliente" ? "bg-success" :
+                          "bg-info")">
+                        @usuario.Rol
+                    </span>
+                </td>
+                <td>
+                    <!-- Botón Chatear - Disponible para todos -->
+                    <a asp-controller="Mensajes" asp-action="Chat"
+                       asp-route-destinatarioId="@usuario.IdUsuario"
+                       class="btn btn-success btn-sm">
+                        💬 Chatear
+                    </a>
+
+                    <!-- Editar Perfil - Solo para tu propio perfil -->
+                    @if (esMiPerfil)
+                    {
+                        <a asp-controller="Usuarios" asp-action="Edit" asp-route-id="@usuario.IdUsuario"
+                           class="btn btn-warning btn-sm">
+                            ✏️ Mi Perfil
+                        </a>
+                    }
+
+                    <!-- Acciones de Admin - Solo para Admin -->
+                    @if (esAdmin)
+                    {
+                        <!-- Editar cualquier usuario -->
+                        <a asp-controller="Usuarios" asp-action="Edit" asp-route-id="@usuario.IdUsuario"
+                           class="btn btn-outline-warning btn-sm">
+                            ✏️ Editar
+                        </a>
+
+                        <!-- Detalles -->
+                        <a asp-controller="Usuarios" asp-action="Details" asp-route-id="@usuario.IdUsuario"
+                           class="btn btn-info btn-sm">
+                            👀 Detalles
+                        </a>
+
+                        <!-- Eliminar -->
+                        <a asp-controller="Usuarios" asp-action="Delete" asp-route-id="@usuario.IdUsuario"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('¿Estás seguro de que quieres eliminar a @usuario.NombreCompleto?')">
+                            🗑️ Eliminar
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

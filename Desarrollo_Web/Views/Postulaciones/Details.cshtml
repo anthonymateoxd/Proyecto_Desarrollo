@@ -1,0 +1,93 @@
+﻿@model DemonSlayer.Models.Postulacion
+
+@{
+    ViewData["Title"] = "Detalles de Propuesta";
+
+    // Obtener el ID del usuario actual
+    int userId = 0;
+    int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out userId);
+
+    // Verificar si el usuario actual es el que creó la postulación
+    bool esCreador = Model.ConsultorId == userId;
+    bool esAdmin = User.IsInRole("Admin");
+}
+
+<h1>📋 Detalles de la Propuesta</h1>
+
+<div>
+    <h4>Propuesta</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MontoQ)
+        </dt>
+        <dd class="col-sm-10">
+            Q @Html.DisplayFor(model => model.MontoQ)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Propuesta)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Propuesta)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Fecha.ToString("dd/MM/yyyy HH:mm")
+        </dd>
+        <dt class="col-sm-2">
+            ID del Proyecto
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProyectoId)
+        </dd>
+        <dt class="col-sm-2">
+            Consultor
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ConsultorId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Aceptada)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Aceptada)
+            {
+                <span class="badge bg-success">✅ Aceptada</span>
+            }
+            else
+            {
+                <span class="badge bg-warning">⏳ Pendiente</span>
+            }
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <!-- Solo el creador de la postulación o Admin puede editar -->
+    @if (esCreador || esAdmin)
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">✏️ Editar</a>
+    }
+
+    <!-- Botones adicionales para el cliente dueño del proyecto -->
+    @if (User.IsInRole("Cliente") && !esCreador)
+    {
+        if (!Model.Aceptada)
+        {
+        }
+        else
+        {
+            <span class="badge bg-success">Propuesta Aceptada</span>
+        }
+
+        <!-- Botón para chatear con el consultor -->
+        <a asp-controller="Mensajes" asp-action="Chat" asp-route-destinatarioId="@Model.ConsultorId"
+           class="btn btn-info">
+            💬 Contactar Consultor
+        </a>
+    }
+
+    <a asp-controller="Proyectos" asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+</div>

@@ -1,0 +1,51 @@
+﻿@model DemonSlayer.Models.Postulacion
+
+@{
+    ViewData["Title"] = "Eliminar Postulación";
+}
+
+<h1>🗑️ Eliminar Postulación</h1>
+
+<h3>¿Estás seguro de que quieres eliminar esta postulación?</h3>
+<div>
+    <h4>Postulación</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Monto:</dt>
+        <dd class="col-sm-10">Q @Model.MontoQ.ToString("N2")</dd>
+
+        <dt class="col-sm-2">Propuesta:</dt>
+        <dd class="col-sm-10">@Model.Propuesta</dd>
+
+        <dt class="col-sm-2">Fecha:</dt>
+        <dd class="col-sm-10">@Model.Fecha.ToString("dd/MM/yyyy HH:mm")</dd>
+
+        <dt class="col-sm-2">Proyecto ID:</dt>
+        <dd class="col-sm-10">@Model.ProyectoId</dd>
+
+        <dt class="col-sm-2">Consultor ID:</dt>
+        <dd class="col-sm-10">@Model.ConsultorId</dd>
+
+        <dt class="col-sm-2">Estado:</dt>
+        <dd class="col-sm-10">
+            @if (Model.Aceptada)
+            {
+                <span class="badge bg-success">✅ Aceptada</span>
+            }
+            else
+            {
+                <span class="badge bg-warning">⏳ Pendiente</span>
+            }
+        </dd>
+    </dl>
+
+    <div class="alert alert-danger">
+        <strong>⚠️ Advertencia:</strong> Esta acción no se puede deshacer. La postulación será eliminada permanentemente.
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="🗑️ Sí, Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">← Cancelar</a>
+    </form>
+</div>

@@ -1,0 +1,92 @@
+﻿@using System.Security.Claims;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center mt-5">
+
+    @if (User.Identity!.IsAuthenticated)
+    {
+        var rol = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).SingleOrDefault();
+        var nombre = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+        <div class="text-center mt-5">
+            <h1 class="display-5 mb-4 text-primary fw-bold">
+                ¡Hola, <span class="text-dark">@nombre</span>!
+            </h1>
+
+            <div class="alert alert-info mb-4 shadow-sm">
+                <h5 class="alert-heading">
+                    @(rol == "Admin" ? "🛡️ Eres Administrador" :
+                        rol == "Cliente" ? "👑 Eres Cliente" :
+                        "💼 Eres Consultor")
+                </h5>
+                <p class="mb-0">
+                    @(rol == "Admin"
+                        ? "Tienes control total sobre el sistema: usuarios, proyectos, postulaciones y mensajes."
+                        : rol == "Cliente"
+                        ? "Puedes publicar proyectos y gestionar postulaciones."
+                        : "Puedes postularte a proyectos y ver tus aplicaciones.")
+                </p>
+            </div>
+
+            <!-- 🔘 BOTONES SEGÚN ROL -->
+            <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+
+                @* --- ADMIN --- *@
+                @if (rol == "Admin")
+                {
+                   
+                    <a asp-controller="Proyectos" asp-action="Index" class="btn btn-lg btn-primary px-4 shadow-sm">
+                        📋 Ver Proyectos
+                    </a>
+                    <a asp-controller="Postulaciones" asp-action="Index" class="btn btn-lg btn-success px-4 shadow-sm">
+                        🧾 Ver Postulaciones
+                    </a>
+                    <a asp-controller="Usuarios" asp-action="Index" class="btn btn-lg btn-warning px-4 shadow-sm">
+                        💬 Mensajes
+                    </a>
+                }
+
+                @* --- CLIENTE --- *@
+                else if (rol == "Cliente")
+                {
+                    <a asp-controller="Proyectos" asp-action="Index" class="btn btn-lg btn-primary px-4 shadow-sm">
+                        📋 Mis Proyectos
+                    </a>
+                    <a asp-controller="Proyectos" asp-action="Create" class="btn btn-lg btn-outline-primary px-4 shadow-sm">
+                        ➕ Crear Proyecto
+                    </a>
+                    <a asp-controller="Usuarios" asp-action="Index" class="btn btn-lg btn-outline-secondary px-4 shadow-sm">
+                        💬 Chats
+                    </a>
+                }
+
+                @* --- CONSULTOR --- *@
+                else if (rol == "Consultor")
+                {
+                    <a asp-controller="Proyectos" asp-action="Index" class="btn btn-lg btn-primary px-4 shadow-sm">
+                        🚀 Ver Proyectos
+                    </a>
+                    <a asp-controller="Postulaciones" asp-action="Index" class="btn btn-lg btn-outline-primary px-4 shadow-sm">
+                        📋 Mis Postulaciones
+                    </a>
+                    <a asp-controller="Usuarios" asp-action="Index" class="btn btn-lg btn-outline-secondary px-4 shadow-sm">
+                        💬 Mensajes
+                    </a>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="mt-5">
+            <h1 class="text-dark fw-bold mb-4">Bienvenido a <span class="text-primary">FreelancerHub</span></h1>
+            <p class="lead text-muted">Inicia sesión o regístrate para comenzar.</p>
+            <div class="mt-4">
+                <a asp-controller="Accesso" asp-action="Login" class="btn btn-primary btn-lg mx-2 px-4">Iniciar Sesión</a>
+                <a asp-controller="Accesso" asp-action="Registrarse" class="btn btn-outline-primary btn-lg mx-2 px-4">Registrarse</a>
+            </div>
+        </div>
+    }
+</div>

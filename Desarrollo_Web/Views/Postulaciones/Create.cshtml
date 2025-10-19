@@ -1,0 +1,223 @@
+﻿@model DemonSlayer.Models.Postulacion
+
+@{
+    ViewData["Title"] = "Postularse a Proyecto";
+}
+
+<h1>📝 Postularse a Proyecto</h1>
+
+<h4>Completa tu propuesta</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" id="postulacionForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Campo OCULTO para ProyectoId -->
+            <input type="hidden" asp-for="ProyectoId" />
+
+            <!-- Campo OCULTO para ConsultorId (se llenará automáticamente en el controller) -->
+            <input type="hidden" asp-for="ConsultorId" value="0" />
+
+            <!-- Campo OCULTO para Aceptada (siempre false al crear) -->
+            <input type="hidden" asp-for="Aceptada" value="false" />
+
+            <div class="form-group mb-3">
+                <label asp-for="MontoQ" class="control-label">💰 Monto Propuesto (Q) *</label>
+                <input asp-for="MontoQ" type="number"
+                       class="form-control"
+                       min="1"
+                       max="9999999.99"
+                       step="0.01"
+                       placeholder="0.00"
+                       id="montoInput" />
+                <span asp-validation-for="MontoQ" class="text-danger"></span>
+                <small class="text-muted">Mínimo: Q1.00 - Máximo: Q9,999,999.99</small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Propuesta" class="control-label">📄 Tu Propuesta *</label>
+                <textarea asp-for="Propuesta" class="form-control"
+                          rows="6"
+                          maxlength="2000"
+                          placeholder="Describe tu propuesta, experiencia, metodología de trabajo, timeline, y por qué eres adecuado para este proyecto..."
+                          id="propuestaInput"></textarea>
+                <span asp-validation-for="Propuesta" class="text-danger"></span>
+                <small class="text-muted">
+                    <span id="contadorPropuesta">0</span>/2000 caracteres
+                </small>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">✅ Enviar Postulación</button>
+                <a asp-controller="Proyectos" asp-action="Index" class="btn btn-secondary">← Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>ℹ️ Información del Proyecto</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Proyecto ID:</strong> @Model.ProyectoId</p>
+
+                <div class="alert alert-info mt-3">
+                    <small>
+                        <strong>📋 Límites establecidos:</strong><br>
+                        • Monto: Q1.00 - Q9,999,999.99<br>
+                        • Propuesta: 2000 caracteres máximo
+                    </small>
+                </div>
+
+                <div class="alert alert-warning">
+                    <small>
+                        <strong>💡 Consejos para una buena propuesta:</strong><br>
+                        • Sé específico en tu metodología<br>
+                        • Incluye un timeline realista<br>
+                        • Destaca tu experiencia relevante<br>
+                        • Explica por qué eres la mejor opción<br>
+                        • Mantén un tono profesional
+                    </small>
+                </div>
+
+                <p class="text-muted mt-3">
+                    <small>
+                        Tu propuesta será revisada por el cliente.
+                        Una vez enviada, podrás editarla hasta que sea aceptada.
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Función para contador de caracteres
+        function setupContador(inputId, contadorId, maxLength) {
+            const input = document.getElementById(inputId);
+            const contador = document.getElementById(contadorId);
+
+            if (input && contador) {
+                // Actualizar contador inicial
+                contador.textContent = input.value.length;
+
+                // Actualizar en tiempo real
+                input.addEventListener('input', function() {
+                    const caracteres = this.value.length;
+                    contador.textContent = caracteres;
+
+                    // Cambiar color cuando se acerca al límite
+                    if (caracteres > maxLength * 0.8) {
+                        contador.className = 'text-warning';
+                    } else if (caracteres > maxLength * 0.9) {
+                        contador.className = 'text-danger';
+                    } else {
+                        contador.className = 'text-muted';
+                    }
+
+                    // Prevenir que exceda el límite
+                    if (caracteres > maxLength) {
+                        this.value = this.value.substring(0, maxLength);
+                        contador.textContent = maxLength;
+                    }
+                });
+            }
+        }
+
+        // Validación del monto
+        function validarMonto(input) {
+            let valor = parseFloat(input.value);
+
+            if (isNaN(valor)) {
+                input.value = '';
+                return false;
+            }
+
+            // Limitar a 2 decimales
+            input.value = valor.toFixed(2);
+
+            // Validar rango
+            if (valor < 1) {
+                input.value = '1.00';
+            } else if (valor > 9999999.99) {
+                input.value = '9999999.99';
+            }
+
+            return true;
+        }
+
+        // Formatear monto mientras escribe
+        function formatearMonto(input) {
+            // Remover caracteres no numéricos excepto punto decimal
+            input.value = input.value.replace(/[^\d.]/g, '');
+
+            // Permitir solo un punto decimal
+            const puntos = input.value.split('.');
+            if (puntos.length > 2) {
+                input.value = puntos[0] + '.' + puntos.slice(1).join('');
+            }
+
+            // Limitar a 2 decimales
+            if (puntos.length === 2 && puntos[1].length > 2) {
+                input.value = puntos[0] + '.' + puntos[1].substring(0, 2);
+            }
+        }
+
+        // Configurar validaciones
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar contador para propuesta
+            setupContador('propuestaInput', 'contadorPropuesta', 2000);
+
+            // Validar monto en tiempo real
+            const montoInput = document.getElementById('montoInput');
+            montoInput.addEventListener('input', function() {
+                formatearMonto(this);
+            });
+
+            montoInput.addEventListener('blur', function() {
+                validarMonto(this);
+            });
+
+            // Validación antes de enviar
+            document.getElementById('postulacionForm').addEventListener('submit', function(e) {
+                const monto = document.getElementById('montoInput').value;
+                const propuesta = document.getElementById('propuestaInput').value;
+
+                // Validar monto
+                const montoNum = parseFloat(monto);
+                if (isNaN(montoNum) || montoNum < 1 || montoNum > 9999999.99) {
+                    e.preventDefault();
+                    alert('El monto debe estar entre Q1.00 y Q9,999,999.99');
+                    return false;
+                }
+
+                // Validar longitud de propuesta
+                if (propuesta.length > 2000) {
+                    e.preventDefault();
+                    alert('La propuesta no puede tener más de 2000 caracteres.');
+                    return false;
+                }
+
+                // Validar campos requeridos
+                if (propuesta.trim() === '') {
+                    e.preventDefault();
+                    alert('La propuesta es requerida.');
+                    return false;
+                }
+
+                if (monto.trim() === '') {
+                    e.preventDefault();
+                    alert('El monto propuesto es requerido.');
+                    return false;
+                }
+            });
+        });
+    </script>
+}

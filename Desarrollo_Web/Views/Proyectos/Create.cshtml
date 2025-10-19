@@ -1,0 +1,262 @@
+﻿@model DemonSlayer.Models.Proyecto
+
+@{
+    ViewData["Title"] = "Crear Proyecto";
+}
+
+<h1>🚀 Crear Nuevo Proyecto</h1>
+
+<h4>Proyecto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" id="proyectoForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Titulo" class="control-label">Título del Proyecto *</label>
+                <input asp-for="Titulo" class="form-control"
+                       maxlength="50"
+                       placeholder="Ej: Desarrollo de App Móvil"
+                       id="tituloInput" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+                <small class="text-muted">
+                    <span id="contadorTitulo">0</span>/50 caracteres
+                </small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Descripcion" class="control-label">Descripción *</label>
+                <textarea asp-for="Descripcion" class="form-control"
+                          rows="4"
+                          maxlength="1000"
+                          placeholder="Describe detalladamente tu proyecto..."
+                          id="descripcionInput"></textarea>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                <small class="text-muted">
+                    <span id="contadorDescripcion">0</span>/1000 caracteres
+                </small>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="PresupuestoQ" class="control-label">Presupuesto (Q) *</label>
+                        <input asp-for="PresupuestoQ" type="number"
+                               class="form-control"
+                               min="1"
+                               max="9999999.99"
+                               step="0.01"
+                               placeholder="0.00"
+                               id="presupuestoInput" />
+                        <span asp-validation-for="PresupuestoQ" class="text-danger"></span>
+                        <small class="text-muted">Mínimo: Q1.00 - Máximo: Q9,999,999.99</small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="FechaLimite" class="control-label">Fecha Límite *</label>
+                        <input asp-for="FechaLimite" type="date"
+                               class="form-control"
+                               min="@DateTime.Now.ToString("yyyy-MM-dd")"
+                               max="@DateTime.Now.AddYears(5).ToString("yyyy-MM-dd")"
+                               id="fechaLimiteInput" />
+                        <span asp-validation-for="FechaLimite" class="text-danger"></span>
+                        <small class="text-muted">Máximo 5 años en el futuro</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campo ClienteId OCULTO - se asignará automáticamente -->
+            <input type="hidden" asp-for="ClienteId" />
+
+            <div class="form-group mb-3">
+                <input type="submit" value="✅ Crear Proyecto" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">← Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Panel de ayuda -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>💡 Consejos para crear un buen proyecto</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li><strong>Título claro (50 chars):</strong> Describe brevemente tu proyecto</li>
+                    <li><strong>Descripción detallada (1000 chars):</strong> Incluye objetivos, requisitos y expectativas</li>
+                    <li><strong>Presupuesto realista:</strong> Q1.00 a Q9,999,999.99</li>
+                    <li><strong>Fecha límite:</strong> Máximo 5 años en el futuro</li>
+                </ul>
+
+                <div class="alert alert-info mt-3">
+                    <small>
+                        <strong>📋 Límites establecidos:</strong><br>
+                        • Título: 50 caracteres máximo<br>
+                        • Descripción: 1000 caracteres máximo<br>
+                        • Presupuesto: Q1.00 - Q9,999,999.99<br>
+                        • Fecha: Hoy - 5 años máximo
+                    </small>
+                </div>
+
+                <div class="alert alert-warning mt-2">
+                    <small>
+                        <strong>Nota:</strong> Tu ID de cliente se asignará automáticamente.
+                        Los consultores podrán ver tu proyecto y postularse con sus propuestas.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-secondary">← Volver a la Lista</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Función para contador de caracteres
+        function setupContador(inputId, contadorId, maxLength) {
+            const input = document.getElementById(inputId);
+            const contador = document.getElementById(contadorId);
+
+            if (input && contador) {
+                // Actualizar contador inicial
+                contador.textContent = input.value.length;
+
+                // Actualizar en tiempo real
+                input.addEventListener('input', function() {
+                    const caracteres = this.value.length;
+                    contador.textContent = caracteres;
+
+                    // Cambiar color cuando se acerca al límite
+                    if (caracteres > maxLength * 0.8) {
+                        contador.className = 'text-warning';
+                    } else if (caracteres > maxLength * 0.9) {
+                        contador.className = 'text-danger';
+                    } else {
+                        contador.className = 'text-muted';
+                    }
+
+                    // Prevenir que exceda el límite
+                    if (caracteres > maxLength) {
+                        this.value = this.value.substring(0, maxLength);
+                        contador.textContent = maxLength;
+                    }
+                });
+            }
+        }
+
+        // Validación del presupuesto
+        function validarPresupuesto(input) {
+            let valor = parseFloat(input.value);
+
+            if (isNaN(valor)) {
+                input.value = '';
+                return false;
+            }
+
+            // Limitar a 2 decimales
+            input.value = valor.toFixed(2);
+
+            // Validar rango
+            if (valor < 1) {
+                input.value = '1.00';
+            } else if (valor > 9999999.99) {
+                input.value = '9999999.99';
+            }
+
+            return true;
+        }
+
+        // Configurar validaciones
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar contadores
+            setupContador('tituloInput', 'contadorTitulo', 50);
+            setupContador('descripcionInput', 'contadorDescripcion', 1000);
+
+            // Configurar fecha mínima y máxima
+            const fechaInput = document.getElementById('fechaLimiteInput');
+            const hoy = new Date().toISOString().split('T')[0];
+            const maxFecha = new Date();
+            maxFecha.setFullYear(maxFecha.getFullYear() + 5);
+            const maxFechaStr = maxFecha.toISOString().split('T')[0];
+
+            fechaInput.min = hoy;
+            fechaInput.max = maxFechaStr;
+
+            // Validar presupuesto en tiempo real
+            const presupuestoInput = document.getElementById('presupuestoInput');
+            presupuestoInput.addEventListener('blur', function() {
+                validarPresupuesto(this);
+            });
+
+            // Validación antes de enviar
+            document.getElementById('proyectoForm').addEventListener('submit', function(e) {
+                const titulo = document.getElementById('tituloInput').value;
+                const descripcion = document.getElementById('descripcionInput').value;
+                const presupuesto = document.getElementById('presupuestoInput').value;
+                const fecha = document.getElementById('fechaLimiteInput').value;
+
+                // Validar longitud
+                if (titulo.length > 50) {
+                    e.preventDefault();
+                    alert('El título no puede tener más de 50 caracteres.');
+                    return false;
+                }
+
+                if (descripcion.length > 1000) {
+                    e.preventDefault();
+                    alert('La descripción no puede tener más de 1000 caracteres.');
+                    return false;
+                }
+
+                // Validar presupuesto
+                const presupuestoNum = parseFloat(presupuesto);
+                if (isNaN(presupuestoNum) || presupuestoNum < 1 || presupuestoNum > 9999999.99) {
+                    e.preventDefault();
+                    alert('El presupuesto debe estar entre Q1.00 y Q9,999,999.99');
+                    return false;
+                }
+
+                // Validar fecha
+                const fechaSeleccionada = new Date(fecha);
+                const hoy = new Date();
+                const maxFecha = new Date();
+                maxFecha.setFullYear(hoy.getFullYear() + 5);
+
+                if (fechaSeleccionada < hoy) {
+                    e.preventDefault();
+                    alert('La fecha límite no puede ser en el pasado.');
+                    return false;
+                }
+
+                if (fechaSeleccionada > maxFecha) {
+                    e.preventDefault();
+                    alert('La fecha límite no puede ser más de 5 años en el futuro.');
+                    return false;
+                }
+
+                // Validar campos requeridos
+                if (titulo.trim() === '') {
+                    e.preventDefault();
+                    alert('El título del proyecto es requerido.');
+                    return false;
+                }
+
+                if (descripcion.trim() === '') {
+                    e.preventDefault();
+                    alert('La descripción del proyecto es requerida.');
+                    return false;
+                }
+            });
+        });
+    </script>
+}

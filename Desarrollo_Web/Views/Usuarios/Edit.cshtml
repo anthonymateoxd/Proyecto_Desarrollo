@@ -1,0 +1,210 @@
+﻿@model DemonSlayer.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Perfil";
+
+    bool esAdmin = User.IsInRole("Admin");
+    bool esMiPerfil = Model.IdUsuario.ToString() == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+}
+
+<h1>✏️ Editar Perfil</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" id="perfilForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdUsuario" />
+
+            <div class="form-group mb-3">
+                <label asp-for="NombreCompleto" class="control-label">Nombre Completo *</label>
+                <input asp-for="NombreCompleto" class="form-control"
+                       maxlength="50"
+                       placeholder="Ej: Juan Pérez García" />
+                <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+                <small class="text-muted">
+                    <span id="contadorNombre">0</span>/50 caracteres
+                </small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Correo" class="control-label">Correo Electrónico *</label>
+                <input asp-for="Correo" type="email" class="form-control"
+                       maxlength="50"
+                       placeholder="ejemplo@correo.com" />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+                <small class="text-muted">
+                    <span id="contadorCorreo">0</span>/50 caracteres
+                </small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Contraseña</label>
+                <input type="password" name="Clave" id="claveInput" class="form-control"
+                       maxlength="30"
+                       placeholder="Nueva contraseña (opcional)" />
+                <small class="text-muted">
+                    <span id="contadorClave">0</span>/30 caracteres - Deja en blanco si no quieres cambiar
+                </small>
+            </div>
+
+            <!-- Campo Rol - SOLO visible para Admin -->
+            @if (esAdmin)
+            {
+                <div class="form-group mb-3">
+                    <label asp-for="Rol" class="control-label">Rol *</label>
+                    <select asp-for="Rol" class="form-control">
+                        <option value="Cliente">Cliente</option>
+                        <option value="Consultor">Consultor</option>
+                        <option value="Admin">Administrador</option>
+                    </select>
+                    <span asp-validation-for="Rol" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <!-- Para no-admin, mostrar el rol pero no editable -->
+                <div class="form-group mb-3">
+                    <label class="control-label">Rol</label>
+                    <input type="text" class="form-control" value="@Model.Rol" readonly />
+                    <small class="text-muted">El rol no puede ser modificado</small>
+                    <input type="hidden" asp-for="Rol" />
+                </div>
+            }
+
+            <div class="form-group mb-3">
+                <input type="submit" value="💾 Guardar Cambios" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Panel informativo -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>ℹ️ Información</h5>
+            </div>
+            <div class="card-body">
+                @if (esMiPerfil)
+                {
+                    <p>Estás editando <strong>tu propio perfil</strong>.</p>
+                }
+                else if (esAdmin)
+                {
+                    <p>Estás editando el perfil de <strong>@Model.NombreCompleto</strong> como administrador.</p>
+                }
+
+                <div class="alert alert-info mt-3">
+                    <small>
+                        <strong>📝 Límites establecidos:</strong><br>
+                        • Nombre: 50 caracteres máximo<br>
+                        • Correo: 50 caracteres máximo<br>
+                        • Contraseña: 30 caracteres máximo
+                    </small>
+                </div>
+
+                <div class="alert alert-warning mt-2">
+                    <small>
+                        <strong>Nota:</strong>
+                        @if (!esAdmin)
+                        {
+                            <text>Los usuarios no pueden cambiar su rol. Solo un administrador puede modificar roles.</text>
+                        }
+                        else
+                        {
+                            <text>Como administrador, puedes modificar el rol de cualquier usuario.</text>
+                        }
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Función para contador de caracteres
+        function setupContador(inputId, contadorId, maxLength) {
+            const input = document.getElementById(inputId);
+            const contador = document.getElementById(contadorId);
+
+            if (input && contador) {
+                // Actualizar contador inicial
+                contador.textContent = input.value.length;
+
+                // Actualizar en tiempo real
+                input.addEventListener('input', function() {
+                    const caracteres = this.value.length;
+                    contador.textContent = caracteres;
+
+                    // Cambiar color cuando se acerca al límite
+                    if (caracteres > maxLength * 0.8) {
+                        contador.className = 'text-warning';
+                    } else if (caracteres > maxLength * 0.9) {
+                        contador.className = 'text-danger';
+                    } else {
+                        contador.className = 'text-muted';
+                    }
+
+                    // Prevenir que exceda el límite
+                    if (caracteres > maxLength) {
+                        this.value = this.value.substring(0, maxLength);
+                        contador.textContent = maxLength;
+                    }
+                });
+            }
+        }
+
+        // Configurar contadores para cada campo
+        document.addEventListener('DOMContentLoaded', function() {
+            setupContador('NombreCompleto', 'contadorNombre', 50);
+            setupContador('Correo', 'contadorCorreo', 50);
+            setupContador('claveInput', 'contadorClave', 30);
+
+            // Validación adicional antes de enviar
+            document.getElementById('perfilForm').addEventListener('submit', function(e) {
+                const nombre = document.getElementById('NombreCompleto').value;
+                const correo = document.getElementById('Correo').value;
+                const clave = document.getElementById('claveInput').value;
+
+                // Validar longitud
+                if (nombre.length > 50) {
+                    e.preventDefault();
+                    alert('El nombre no puede tener más de 50 caracteres.');
+                    return false;
+                }
+
+                if (correo.length > 50) {
+                    e.preventDefault();
+                    alert('El correo no puede tener más de 50 caracteres.');
+                    return false;
+                }
+
+                if (clave.length > 30) {
+                    e.preventDefault();
+                    alert('La contraseña no puede tener más de 30 caracteres.');
+                    return false;
+                }
+
+                // Validar campos requeridos
+                if (nombre.trim() === '') {
+                    e.preventDefault();
+                    alert('El nombre completo es requerido.');
+                    return false;
+                }
+
+                if (correo.trim() === '') {
+                    e.preventDefault();
+                    alert('El correo electrónico es requerido.');
+                    return false;
+                }
+            });
+        });
+    </script>
+}

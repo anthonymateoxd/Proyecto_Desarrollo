@@ -1,0 +1,324 @@
+﻿@model DemonSlayer.Models.Proyecto
+
+@{
+    ViewData["Title"] = "Editar Proyecto";
+
+    // Obtener información del usuario
+    int userId = 0;
+    int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out userId);
+
+    bool esAdmin = User.IsInRole("Admin");
+    bool esCreador = Model.ClienteId == userId;
+    bool puedeEditar = esAdmin || esCreador;
+}
+
+@if (!puedeEditar)
+{
+    <div class="alert alert-danger text-center">
+        <h4>🚫 Acceso Denegado</h4>
+        <p>No tienes permisos para editar este proyecto.</p>
+        <a asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+    </div>
+}
+else
+{
+    <h1>✏️ Editar Proyecto</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit" id="proyectoForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ClienteId" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Titulo" class="control-label">Título del Proyecto *</label>
+                    <input asp-for="Titulo" class="form-control"
+                           maxlength="50"
+                           placeholder="Ej: Desarrollo de App Móvil"
+                           id="tituloInput" />
+                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                    <small class="text-muted">
+                        <span id="contadorTitulo">@Model.Titulo?.Length</span>/50 caracteres
+                    </small>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Descripcion" class="control-label">Descripción *</label>
+                    <textarea asp-for="Descripcion" class="form-control"
+                              rows="4"
+                              maxlength="1000"
+                              placeholder="Describe detalladamente tu proyecto..."
+                              id="descripcionInput">@Model.Descripcion</textarea>
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    <small class="text-muted">
+                        <span id="contadorDescripcion">@Model.Descripcion?.Length</span>/1000 caracteres
+                    </small>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="PresupuestoQ" class="control-label">Presupuesto (Q) *</label>
+                            <input asp-for="PresupuestoQ" type="number"
+                                   class="form-control"
+                                   min="1"
+                                   max="9999999.99"
+                                   step="0.01"
+                                   placeholder="0.00"
+                                   id="presupuestoInput" />
+                            <span asp-validation-for="PresupuestoQ" class="text-danger"></span>
+                            <small class="text-muted">Mínimo: Q1.00 - Máximo: Q9,999,999.99</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="FechaLimite" class="control-label">Fecha Límite *</label>
+                            <input asp-for="FechaLimite" type="date"
+                                   class="form-control"
+                                   id="fechaLimiteInput" />
+                            <span asp-validation-for="FechaLimite" class="text-danger"></span>
+                            <small class="text-muted">Máximo 5 años en el futuro</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Estado" class="control-label">Estado del Proyecto</label>
+                    <select asp-for="Estado" class="form-control">
+                        <option value="Activo">🟢 Activo</option>
+                        <option value="En Progreso">🟡 En Progreso</option>
+                        <option value="Completado">🔵 Completado</option>
+                        <option value="Cancelado">🔴 Cancelado</option>
+                        <option value="Pausado">🟠 Pausado</option>
+                    </select>
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+
+                <!-- Información del Cliente (solo lectura) -->
+                <div class="form-group mb-3">
+                    <label class="control-label">Cliente ID</label>
+                    <input type="text" class="form-control" value="@Model.ClienteId" readonly />
+                    <small class="text-muted">ID del cliente creador (no editable)</small>
+                </div>
+
+                <div class="form-group mb-3">
+                    <input type="submit" value="💾 Guardar Cambios" class="btn btn-primary" />
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">👀 Ver Detalles</a>
+                    <a asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Panel informativo -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>ℹ️ Información del Proyecto</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>ID del Proyecto:</strong> @Model.Id</p>
+                    <p><strong>Cliente Creador:</strong> @Model.ClienteId</p>
+                    <p>
+                        <strong>Estado Actual:</strong>
+                        <span class="badge
+                            @(Model.Estado == "Activo" ? "bg-success" :
+                              Model.Estado == "En Progreso" ? "bg-warning" :
+                              Model.Estado == "Completado" ? "bg-info" :
+                              Model.Estado == "Cancelado" ? "bg-danger" : "bg-secondary")">
+                            @Model.Estado
+                        </span>
+                    </p>
+
+                    <div class="alert alert-info mt-3">
+                        <small>
+                            <strong>📋 Límites establecidos:</strong><br>
+                            • Título: 50 caracteres máximo<br>
+                            • Descripción: 1000 caracteres máximo<br>
+                            • Presupuesto: Q1.00 - Q9,999,999.99<br>
+                            • Fecha: Hoy - 5 años máximo
+                        </small>
+                    </div>
+
+                    <div class="alert alert-warning mt-2">
+                        <small>
+                            <strong>Nota:</strong>
+                            @if (esCreador)
+                            {
+                                <text>Estás editando tu propio proyecto.</text>
+                            }
+                            else if (esAdmin)
+                            {
+                                <text>Estás editando este proyecto como administrador.</text>
+                            }
+                        </small>
+                    </div>
+
+                    <!-- Estadísticas rápidas (opcional) -->
+                    <div class="mt-3">
+                        <h6>📊 Acciones Disponibles:</h6>
+                        <div class="d-grid gap-2">
+                            <a asp-controller="Postulaciones" asp-action="PropuestasPorProyecto"
+                               asp-route-proyectoId="@Model.Id" class="btn btn-outline-info btn-sm">
+                                📋 Ver Propuestas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Función para contador de caracteres
+        function setupContador(inputId, contadorId, maxLength) {
+            const input = document.getElementById(inputId);
+            const contador = document.getElementById(contadorId);
+
+            if (input && contador) {
+                // Actualizar contador inicial
+                contador.textContent = input.value.length;
+
+                // Actualizar en tiempo real
+                input.addEventListener('input', function() {
+                    const caracteres = this.value.length;
+                    contador.textContent = caracteres;
+
+                    // Cambiar color cuando se acerca al límite
+                    if (caracteres > maxLength * 0.8) {
+                        contador.className = 'text-warning';
+                    } else if (caracteres > maxLength * 0.9) {
+                        contador.className = 'text-danger';
+                    } else {
+                        contador.className = 'text-muted';
+                    }
+
+                    // Prevenir que exceda el límite
+                    if (caracteres > maxLength) {
+                        this.value = this.value.substring(0, maxLength);
+                        contador.textContent = maxLength;
+                    }
+                });
+            }
+        }
+
+        // Validación del presupuesto
+        function validarPresupuesto(input) {
+            let valor = parseFloat(input.value);
+
+            if (isNaN(valor)) {
+                input.value = '';
+                return false;
+            }
+
+            // Limitar a 2 decimales
+            input.value = valor.toFixed(2);
+
+            // Validar rango
+            if (valor < 1) {
+                input.value = '1.00';
+            } else if (valor > 9999999.99) {
+                input.value = '9999999.99';
+            }
+
+            return true;
+        }
+
+        // Configurar validaciones
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar contadores
+            setupContador('tituloInput', 'contadorTitulo', 50);
+            setupContador('descripcionInput', 'contadorDescripcion', 1000);
+
+            // Configurar fecha mínima y máxima
+            const fechaInput = document.getElementById('fechaLimiteInput');
+            const hoy = new Date().toISOString().split('T')[0];
+            const maxFecha = new Date();
+            maxFecha.setFullYear(maxFecha.getFullYear() + 5);
+            const maxFechaStr = maxFecha.toISOString().split('T')[0];
+
+            fechaInput.min = hoy;
+            fechaInput.max = maxFechaStr;
+
+            // Si la fecha actual es anterior a hoy, permitirla (para proyectos existentes)
+            const fechaActual = new Date('@Model.FechaLimite.ToString("yyyy-MM-dd")');
+            if (fechaActual < new Date(hoy)) {
+                fechaInput.min = fechaActual.toISOString().split('T')[0];
+            }
+
+            // Validar presupuesto en tiempo real
+            const presupuestoInput = document.getElementById('presupuestoInput');
+            presupuestoInput.addEventListener('blur', function() {
+                validarPresupuesto(this);
+            });
+
+            // Validación antes de enviar
+            document.getElementById('proyectoForm').addEventListener('submit', function(e) {
+                const titulo = document.getElementById('tituloInput').value;
+                const descripcion = document.getElementById('descripcionInput').value;
+                const presupuesto = document.getElementById('presupuestoInput').value;
+                const fecha = document.getElementById('fechaLimiteInput').value;
+
+                // Validar longitud
+                if (titulo.length > 50) {
+                    e.preventDefault();
+                    alert('El título no puede tener más de 50 caracteres.');
+                    return false;
+                }
+
+                if (descripcion.length > 1000) {
+                    e.preventDefault();
+                    alert('La descripción no puede tener más de 1000 caracteres.');
+                    return false;
+                }
+
+                // Validar presupuesto
+                const presupuestoNum = parseFloat(presupuesto);
+                if (isNaN(presupuestoNum) || presupuestoNum < 1 || presupuestoNum > 9999999.99) {
+                    e.preventDefault();
+                    alert('El presupuesto debe estar entre Q1.00 y Q9,999,999.99');
+                    return false;
+                }
+
+                // Validar fecha
+                const fechaSeleccionada = new Date(fecha);
+                const hoy = new Date();
+                const maxFecha = new Date();
+                maxFecha.setFullYear(hoy.getFullYear() + 5);
+
+                // Para proyectos existentes, permitir fechas pasadas si ya estaban establecidas
+                const fechaOriginal = new Date('@Model.FechaLimite.ToString("yyyy-MM-dd")');
+                if (fechaSeleccionada < hoy && fechaSeleccionada.getTime() !== fechaOriginal.getTime()) {
+                    e.preventDefault();
+                    alert('La nueva fecha límite no puede ser en el pasado.');
+                    return false;
+                }
+
+                if (fechaSeleccionada > maxFecha) {
+                    e.preventDefault();
+                    alert('La fecha límite no puede ser más de 5 años en el futuro.');
+                    return false;
+                }
+
+                // Validar campos requeridos
+                if (titulo.trim() === '') {
+                    e.preventDefault();
+                    alert('El título del proyecto es requerido.');
+                    return false;
+                }
+
+                if (descripcion.trim() === '') {
+                    e.preventDefault();
+                    alert('La descripción del proyecto es requerida.');
+                    return false;
+                }
+            });
+        });
+    </script>
+}

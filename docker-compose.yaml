@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  demonslayer:
+    build:
+      context: ./Desarrollo_Web
+      dockerfile: Dockerfile
+    container_name: demonslayer-app
+    ports:
+      - '7211:8080'
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=Tanjiro;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+    networks:
+      - demon_network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: demonslayer-sql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+    ports:
+      - '1433:1433'
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - demon_network
+
+networks:
+  demon_network:
+
+volumes:
+  sql_data:

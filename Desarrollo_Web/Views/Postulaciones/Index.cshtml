@@ -1,0 +1,112 @@
+﻿@model IEnumerable<DemonSlayer.Models.Postulacion>
+
+@{
+    ViewData["Title"] = "Mis Postulaciones";
+
+    // Obtener el ID del usuario actual
+    int userId = 0;
+    int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out userId);
+}
+
+<h1>📋 Mis Postulaciones</h1>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Proyecto</th>
+                    <th>Monto Propuesto</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var esCreador = item.ConsultorId == userId;
+
+                    <tr>
+                        <td>
+                            <strong>Proyecto #@item.ProyectoId</strong>
+                            @if (!esCreador)
+                            {
+                                <br />
+
+                                <small class="text-muted">(Postulación de otro consultor)</small>
+                            }
+                        </td>
+                        <td>
+                            <strong>Q @item.MontoQ.ToString("N2")</strong>
+                        </td>
+                        <td>
+                            <small>@item.Fecha.ToString("dd/MM/yyyy HH:mm")</small>
+                        </td>
+                        <td>
+                            @if (item.Aceptada)
+                            {
+                                <span class="badge bg-success">✅ Aceptada</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">⏳ Pendiente</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                    👀 Ver
+                                </a>
+
+                                <!-- Solo mostrar editar y eliminar si es el creador -->
+                                @if (esCreador)
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                        ✏️ Editar
+                                    </a>
+
+                                    <!-- Botón de eliminar con confirmación -->
+                                    <a asp-action="Delete" asp-route-id="@item.Id"
+                                       class="btn btn-danger btn-sm" >
+                                        🗑️ Eliminar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-secondary btn-sm" disabled title="Solo el creador puede editar/eliminar">
+                                        🔒
+                                    </button>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <div class="alert alert-info text-center">
+        <h4>📭 No tienes postulaciones</h4>
+        <p>Aún no te has postulado a ningún proyecto.</p>
+        <a asp-controller="Proyectos" asp-action="Index" class="btn btn-primary">🚀 Ver Proyectos Disponibles</a>
+    </div>
+}
+
+<!-- Botón para ver todos los proyectos -->
+<div class="mt-4">
+    <a asp-controller="Proyectos" asp-action="Index" class="btn btn-outline-primary">
+        📂 Ver Todos los Proyectos
+    </a>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Index" asp-controller="Postulaciones" class="btn btn-outline-secondary">
+            👥 Ver Todas las Postulaciones
+        </a>
+    }
+</div>
