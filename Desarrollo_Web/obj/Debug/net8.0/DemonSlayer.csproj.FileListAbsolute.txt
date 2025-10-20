@@ -809,10 +809,10 @@ D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\staticwebassets\msbuild.build.D
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.DemonSlayer.props
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.DemonSlayer.props
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\staticwebassets.pack.json
-D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\DemonSla.C40FCA98.Up2Date
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\DemonSlayer.dll
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\refint\DemonSlayer.dll
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\DemonSlayer.pdb
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\DemonSlayer.genruntimeconfig.cache
 D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\ref\DemonSlayer.dll
+D:\C#\Proyecto D\Desarrollo_Web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

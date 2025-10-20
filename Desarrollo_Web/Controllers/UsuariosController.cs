@@ -102,23 +102,6 @@ namespace DemonSlayer.Controllers
             return View(usuario);
         }
 
-        // GET: Usuarios/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null) return NotFound();
-
-            // Solo Admin puede eliminar usuarios
-            if (!User.IsInRole("Admin"))
-            {
-                return Forbid();
-            }
-
-            return View(usuario);
-        }
-
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -130,17 +113,70 @@ namespace DemonSlayer.Controllers
                 return Forbid();
             }
 
+            // Obtener el ID del usuario actual
+            var currentUserId = ObtenerUsuarioId();
+
+            // Prevenir que un admin se elimine a sí mismo
+            if (id == currentUserId)
+            {
+                TempData["Error"] = "❌ No puedes eliminarte a ti mismo por razones de seguridad. Contacta a otro administrador si necesitas eliminar tu cuenta.";
+                return RedirectToAction(nameof(Index));
+            }
+
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null)
             {
+                // Verificación adicional por si acaso
+                if (usuario.IdUsuario == currentUserId)
+                {
+                    TempData["Error"] = "❌ No puedes eliminarte a ti mismo por razones de seguridad.";
+                    return RedirectToAction(nameof(Index));
+                }
+
                 _context.Usuarios.Remove(usuario);
                 await _context.SaveChangesAsync();
+
+                TempData["Success"] = "✅ Usuario eliminado correctamente";
+            }
+            else
+            {
+                TempData["Error"] = "❌ Usuario no encontrado";
             }
 
             return RedirectToAction(nameof(Index));
         }
 
+        // También actualiza el método GET Delete para consistencia
+        // GET: Usuarios/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            // Solo Admin puede eliminar usuarios
+            if (!User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
+
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            // Prevenir que un admin se elimine a sí mismo
+            var currentUserId = ObtenerUsuarioId();
+            if (usuario.IdUsuario == currentUserId)
+            {
+                TempData["Error"] = "❌ No puedes eliminarte a ti mismo por razones de seguridad.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(usuario);
+        }
         // POST: Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]

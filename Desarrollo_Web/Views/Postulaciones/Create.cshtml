@@ -4,90 +4,177 @@
     ViewData["Title"] = "Postularse a Proyecto";
 }
 
-<h1>📝 Postularse a Proyecto</h1>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
 
-<h4>Completa tu propuesta</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create" id="postulacionForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    .container {
+        max-width: 1200px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        padding: 30px;
+        margin-top: 20px;
+    }
 
-            <!-- Campo OCULTO para ProyectoId -->
-            <input type="hidden" asp-for="ProyectoId" />
+    h1 {
+        font-weight: bold;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 12px;
+        margin-bottom: 25px;
+    }
 
-            <!-- Campo OCULTO para ConsultorId (se llenará automáticamente en el controller) -->
-            <input type="hidden" asp-for="ConsultorId" value="0" />
+    .form-control {
+        border-radius: 4px;
+        border: 1px solid #bdc3c7;
+    }
 
-            <!-- Campo OCULTO para Aceptada (siempre false al crear) -->
-            <input type="hidden" asp-for="Aceptada" value="false" />
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
 
-            <div class="form-group mb-3">
-                <label asp-for="MontoQ" class="control-label">💰 Monto Propuesto (Q) *</label>
-                <input asp-for="MontoQ" type="number"
-                       class="form-control"
-                       min="1"
-                       max="9999999.99"
-                       step="0.01"
-                       placeholder="0.00"
-                       id="montoInput" />
-                <span asp-validation-for="MontoQ" class="text-danger"></span>
-                <small class="text-muted">Mínimo: Q1.00 - Máximo: Q9,999,999.99</small>
-            </div>
+    .btn-success {
+        background-color: #27ae60;
+        border-color: #219653;
+    }
 
-            <div class="form-group mb-3">
-                <label asp-for="Propuesta" class="control-label">📄 Tu Propuesta *</label>
-                <textarea asp-for="Propuesta" class="form-control"
-                          rows="6"
-                          maxlength="2000"
-                          placeholder="Describe tu propuesta, experiencia, metodología de trabajo, timeline, y por qué eres adecuado para este proyecto..."
-                          id="propuestaInput"></textarea>
-                <span asp-validation-for="Propuesta" class="text-danger"></span>
-                <small class="text-muted">
-                    <span id="contadorPropuesta">0</span>/2000 caracteres
-                </small>
-            </div>
+        .btn-success:hover {
+            background-color: #219653;
+            border-color: #1e874b;
+        }
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-success">✅ Enviar Postulación</button>
-                <a asp-controller="Proyectos" asp-action="Index" class="btn btn-secondary">← Cancelar</a>
-            </div>
-        </form>
-    </div>
+    .btn-secondary {
+        background-color: #95a5a6;
+        border-color: #7f8c8d;
+    }
 
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h5>ℹ️ Información del Proyecto</h5>
-            </div>
-            <div class="card-body">
-                <p><strong>Proyecto ID:</strong> @Model.ProyectoId</p>
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+            border-color: #6c7b7d;
+        }
 
-                <div class="alert alert-info mt-3">
-                    <small>
-                        <strong>📋 Límites establecidos:</strong><br>
-                        • Monto: Q1.00 - Q9,999,999.99<br>
-                        • Propuesta: 2000 caracteres máximo
+    .alert-info {
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
+    }
+
+    .alert-warning {
+        background-color: #fff3cd;
+        border-color: #ffeaa7;
+        color: #856404;
+    }
+
+    .card {
+        border: 1px solid #ecf0f1;
+        border-radius: 6px;
+    }
+
+    .card-header {
+        background-color: #34495e;
+        color: white;
+        font-weight: 600;
+    }
+
+    .text-danger {
+        color: #e74c3c !important;
+    }
+
+    .text-warning {
+        color: #f39c12 !important;
+    }
+</style>
+
+<div class="container">
+    <h1>📝 Postularse a Proyecto</h1>
+
+    <h4>Completa tu propuesta</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create" id="postulacionForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- Campo OCULTO para ProyectoId -->
+                <input type="hidden" asp-for="ProyectoId" />
+
+                <!-- Campo OCULTO para ConsultorId (se llenará automáticamente en el controller) -->
+                <input type="hidden" asp-for="ConsultorId" value="0" />
+
+                <!-- Campo OCULTO para Estado (siempre Pendiente al crear) -->
+                <input type="hidden" asp-for="Estado" value="Pendiente" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="MontoQ" class="control-label">💰 Monto Propuesto (Q) *</label>
+                    <input asp-for="MontoQ" type="number"
+                           class="form-control"
+                           min="1"
+                           max="9999999.99"
+                           step="0.01"
+                           placeholder="0.00"
+                           id="montoInput" />
+                    <span asp-validation-for="MontoQ" class="text-danger"></span>
+                    <small class="text-muted">Mínimo: Q1.00 - Máximo: Q9,999,999.99</small>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Propuesta" class="control-label">📄 Tu Propuesta *</label>
+                    <textarea asp-for="Propuesta" class="form-control"
+                              rows="6"
+                              maxlength="2000"
+                              placeholder="Describe tu propuesta, experiencia, metodología de trabajo, timeline, y por qué eres adecuado para este proyecto..."
+                              id="propuestaInput"></textarea>
+                    <span asp-validation-for="Propuesta" class="text-danger"></span>
+                    <small class="text-muted">
+                        <span id="contadorPropuesta">0</span>/2000 caracteres
                     </small>
                 </div>
 
-                <div class="alert alert-warning">
-                    <small>
-                        <strong>💡 Consejos para una buena propuesta:</strong><br>
-                        • Sé específico en tu metodología<br>
-                        • Incluye un timeline realista<br>
-                        • Destaca tu experiencia relevante<br>
-                        • Explica por qué eres la mejor opción<br>
-                        • Mantén un tono profesional
-                    </small>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">✅ Enviar Postulación</button>
+                    <a asp-controller="Proyectos" asp-action="Index" class="btn btn-secondary">← Cancelar</a>
                 </div>
+            </form>
+        </div>
 
-                <p class="text-muted mt-3">
-                    <small>
-                        Tu propuesta será revisada por el cliente.
-                        Una vez enviada, podrás editarla hasta que sea aceptada.
-                    </small>
-                </p>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>ℹ️ Información del Proyecto</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Proyecto ID:</strong> @Model.ProyectoId</p>
+
+                    <div class="alert alert-info mt-3">
+                        <small>
+                            <strong>📋 Límites establecidos:</strong><br>
+                            • Monto: Q1.00 - Q9,999,999.99<br>
+                            • Propuesta: 2000 caracteres máximo
+                        </small>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <small>
+                            <strong>💡 Consejos para una buena propuesta:</strong><br>
+                            • Sé específico en tu metodología<br>
+                            • Incluye un timeline realista<br>
+                            • Destaca tu experiencia relevante<br>
+                            • Explica por qué eres la mejor opción<br>
+                            • Mantén un tono profesional
+                        </small>
+                    </div>
+
+                    <p class="text-muted mt-3">
+                        <small>
+                            Tu propuesta será revisada por el cliente.
+                            Una vez enviada, podrás editarla hasta que sea aceptada o rechazada.
+                        </small>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

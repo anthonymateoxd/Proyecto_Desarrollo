@@ -7,8 +7,7 @@ namespace DemonSlayer.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(1000)]
-        public string Texto { get; set; }
+        public string Texto { get; set; } = string.Empty; // Agrega valor por defecto
 
         public DateTime Fecha { get; set; } = DateTime.Now;
 

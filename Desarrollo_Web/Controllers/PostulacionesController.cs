@@ -117,7 +117,7 @@ namespace DemonSlayer.Controllers
                 // Asignar automáticamente los valores
                 postulacion.ConsultorId = ObtenerUsuarioId(); // Se llena automáticamente
                 postulacion.Fecha = DateTime.Now;
-                postulacion.Aceptada = false; // Siempre false al crear
+                postulacion.Estado = "Pendiente"; // Siempre Pendiente al crear
 
                 _context.Add(postulacion);
                 await _context.SaveChangesAsync();
@@ -157,7 +157,7 @@ namespace DemonSlayer.Controllers
         // POST: Postulaciones/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MontoQ,Propuesta,Fecha,ProyectoId,ConsultorId,Aceptada")] Postulacion postulacion)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MontoQ,Propuesta,Fecha,ProyectoId,ConsultorId,Estado")] Postulacion postulacion)
         {
             if (id != postulacion.Id)
             {
@@ -185,14 +185,21 @@ namespace DemonSlayer.Controllers
                 ModelState.AddModelError("MontoQ", "El monto debe estar entre Q1.00 y Q9,999,999.99");
             }
 
-            if (string.IsNullOrWhiteSpace(postulacion.Propuesta) || postulacion.Propuesta.Length < 50)
+            if (string.IsNullOrWhiteSpace(postulacion.Propuesta) || postulacion.Propuesta.Length < 10)
             {
-                ModelState.AddModelError("Propuesta", "La propuesta debe tener al menos 50 caracteres");
+                ModelState.AddModelError("Propuesta", "La propuesta debe tener al menos 10 caracteres");
             }
 
             if (postulacion.Propuesta?.Length > 2000)
             {
                 ModelState.AddModelError("Propuesta", "La propuesta no puede tener más de 2000 caracteres");
+            }
+
+            // Validar que el estado sea uno de los permitidos
+            var estadosPermitidos = new[] { "Pendiente", "Aceptada", "Rechazada" };
+            if (!estadosPermitidos.Contains(postulacion.Estado))
+            {
+                ModelState.AddModelError("Estado", "El estado debe ser: Pendiente, Aceptada o Rechazada");
             }
 
             if (ModelState.IsValid)
@@ -203,10 +210,15 @@ namespace DemonSlayer.Controllers
                     postulacionExistente.MontoQ = postulacion.MontoQ;
                     postulacionExistente.Propuesta = postulacion.Propuesta;
 
-                    // Solo admin puede cambiar el estado de aceptación
+                    // Solo admin puede cambiar el estado de la postulación
                     if (esAdmin)
                     {
-                        postulacionExistente.Aceptada = postulacion.Aceptada;
+                        postulacionExistente.Estado = postulacion.Estado;
+                    }
+                    else
+                    {
+                        // Los no-admins solo pueden cambiar a "Pendiente" (cuando editan su propia postulación)
+                        postulacionExistente.Estado = "Pendiente";
                     }
 
                     // Mantener los campos originales que no deben cambiar
@@ -235,7 +247,6 @@ namespace DemonSlayer.Controllers
 
             return View(postulacion);
         }
-
         // GET: Postulaciones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -321,10 +332,9 @@ namespace DemonSlayer.Controllers
         }
         // En PostulacionesController.cs
         [HttpPost]
-        // POST: Postulaciones/AceptarPropuesta/5
+        // POST: Postulaciones/Aceptar/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AceptarPropuesta(int id)
+        public async Task<IActionResult> Aceptar(int id)
         {
             var postulacion = await _context.Postulaciones.FindAsync(id);
             if (postulacion == null)
@@ -332,33 +342,30 @@ namespace DemonSlayer.Controllers
                 return NotFound();
             }
 
-            // Verificar que el usuario actual es el cliente dueño del proyecto
-            var userId = ObtenerUsuarioId();
-            var proyecto = await _context.Proyectos.FindAsync(postulacion.ProyectoId);
-
-            if (proyecto?.ClienteId != userId && !User.IsInRole("Admin"))
-            {
-                return Forbid();
-            }
-
-            // Aceptar la propuesta
-            postulacion.Aceptada = true;
+            postulacion.Estado = "Aceptada";
             _context.Update(postulacion);
             await _context.SaveChangesAsync();
 
-            // Opcional: Rechazar automáticamente otras postulaciones al mismo proyecto
-            var otrasPostulaciones = await _context.Postulaciones
-                .Where(p => p.ProyectoId == postulacion.ProyectoId && p.Id != id)
-                .ToListAsync();
+            TempData["Success"] = "Propuesta aceptada correctamente";
+            return RedirectToAction("PropuestasPorProyecto", "Postulaciones", new { proyectoId = postulacion.ProyectoId });
+        }
 
-            foreach (var otra in otrasPostulaciones)
+        // POST: Postulaciones/Rechazar/5
+        [HttpPost]
+        public async Task<IActionResult> Rechazar(int id)
+        {
+            var postulacion = await _context.Postulaciones.FindAsync(id);
+            if (postulacion == null)
             {
-                otra.Aceptada = false;
-                _context.Update(otra);
+                return NotFound();
             }
+
+            postulacion.Estado = "Rechazada";
+            _context.Update(postulacion);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Proyectos");
+            TempData["Info"] = "Propuesta rechazada";
+            return RedirectToAction("PropuestasPorProyecto", "Postulaciones", new { proyectoId = postulacion.ProyectoId });
         }
         private bool PostulacionExists(int id)
         {

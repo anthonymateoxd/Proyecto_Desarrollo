@@ -26,7 +26,6 @@ else
 
     <div class="row">
         <div class="col-md-6">
-            <!-- CAMBIO IMPORTANTE: Agregar id="postulacionForm" -->
             <form asp-action="Edit" id="postulacionForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
@@ -36,7 +35,7 @@ else
 
                 @if (!esAdmin)
                 {
-                    <input type="hidden" asp-for="Aceptada" />
+                    <input type="hidden" asp-for="Estado" />
                 }
 
                 <div class="form-group mb-3">
@@ -64,15 +63,17 @@ else
                     </small>
                 </div>
 
-                <!-- Solo Admin puede cambiar el estado de aceptación -->
+                <!-- Solo Admin puede cambiar el estado -->
                 @if (esAdmin)
                 {
                     <div class="form-group mb-3">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Aceptada" />
-                            ✅ Propuesta Aceptada
-                        </label>
-                        <small class="text-muted d-block">Solo los administradores pueden cambiar este estado</small>
+                        <label asp-for="Estado" class="control-label">📊 Estado de la Propuesta</label>
+                        <select asp-for="Estado" class="form-control">
+                            <option value="Pendiente">⏳ Pendiente</option>
+                            <option value="Aceptada">✅ Aceptada</option>
+                            <option value="Rechazada">❌ Rechazada</option>
+                        </select>
+                        <small class="text-muted">Solo los administradores pueden cambiar este estado</small>
                     </div>
                 }
                 else
@@ -80,9 +81,13 @@ else
                     <div class="form-group mb-3">
                         <label class="control-label">Estado de la Propuesta</label>
                         <div>
-                            @if (Model.Aceptada)
+                            @if (Model.Estado == "Aceptada")
                             {
                                 <span class="badge bg-success">✅ Aceptada</span>
+                            }
+                            else if (Model.Estado == "Rechazada")
+                            {
+                                <span class="badge bg-danger">❌ Rechazada</span>
                             }
                             else
                             {
@@ -95,7 +100,7 @@ else
 
                 <div class="form-group mb-3">
                     <input type="submit" value="💾 Guardar Cambios" class="btn btn-primary" />
-                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">👀 Ver Detalles</a>
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info"> Ver Detalles</a>
                     <a asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
                 </div>
             </form>
@@ -113,8 +118,11 @@ else
                     <p><strong>Proyecto:</strong> @Model.ProyectoId</p>
                     <p>
                         <strong>Estado:</strong>
-                        <span class="badge @(Model.Aceptada ? "bg-success" : "bg-warning")">
-                            @(Model.Aceptada ? "✅ Aceptada" : "⏳ Pendiente")
+                        <span class="badge
+                            @(Model.Estado == "Aceptada" ? "bg-success" :
+                              Model.Estado == "Rechazada" ? "bg-danger" : "bg-warning")">
+                            @(Model.Estado == "Aceptada" ? "✅ Aceptada" :
+                                Model.Estado == "Rechazada" ? "❌ Rechazada" : "⏳ Pendiente")
                         </span>
                     </p>
                     <p><strong>Fecha de Postulación:</strong> @Model.Fecha.ToString("dd/MM/yyyy HH:mm")</p>
@@ -124,6 +132,15 @@ else
                             <strong>📋 Límites establecidos:</strong><br>
                             • Monto: Q1.00 - Q9,999,999.99<br>
                             • Propuesta: 2000 caracteres máximo
+                        </small>
+                    </div>
+
+                    <div class="alert alert-warning mt-3">
+                        <small>
+                            <strong>⚠️ Nota importante:</strong><br>
+                            • Solo los administradores pueden cambiar el estado<br>
+                            • Si editas tu propuesta, el estado volverá a "Pendiente"<br>
+                            • El cliente será notificado de los cambios
                         </small>
                     </div>
                 </div>
@@ -192,6 +209,23 @@ else
             return true;
         }
 
+        // Formatear monto mientras escribe
+        function formatearMonto(input) {
+            // Remover caracteres no numéricos excepto punto decimal
+            input.value = input.value.replace(/[^\d.]/g, '');
+
+            // Permitir solo un punto decimal
+            const puntos = input.value.split('.');
+            if (puntos.length > 2) {
+                input.value = puntos[0] + '.' + puntos.slice(1).join('');
+            }
+
+            // Limitar a 2 decimales
+            if (puntos.length === 2 && puntos[1].length > 2) {
+                input.value = puntos[0] + '.' + puntos[1].substring(0, 2);
+            }
+        }
+
         // Configurar validaciones
         document.addEventListener('DOMContentLoaded', function() {
             // Configurar contador para propuesta
@@ -199,6 +233,10 @@ else
 
             // Validar monto en tiempo real
             const montoInput = document.getElementById('montoInput');
+            montoInput.addEventListener('input', function() {
+                formatearMonto(this);
+            });
+
             montoInput.addEventListener('blur', function() {
                 validarMonto(this);
             });
@@ -233,13 +271,6 @@ else
                 if (monto.trim() === '') {
                     e.preventDefault();
                     alert('El monto propuesto es requerido.');
-                    return false;
-                }
-
-                // Validar contenido mínimo en propuesta
-                if (propuesta.trim().length < 50) {
-                    e.preventDefault();
-                    alert('Por favor, escribe una propuesta más detallada (mínimo 50 caracteres).');
                     return false;
                 }
             });

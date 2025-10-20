@@ -1,42 +1,199 @@
 ﻿@model DemonSlayer.Models.Usuario
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Usuario";
 }
 
-<h1>Details</h1>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
 
-<div>
-    <h4>Usuario</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreCompleto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreCompleto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Correo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Correo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Clave)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Clave)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rol)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rol)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdUsuario">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    .container {
+        max-width: 900px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        padding: 30px;
+        margin-top: 20px;
+    }
+
+    h1 {
+        font-weight: bold;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 12px;
+        margin-bottom: 25px;
+    }
+
+    h4 {
+        color: #34495e;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .dl-horizontal {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .row {
+        display: contents;
+    }
+
+    dt {
+        font-weight: 600;
+        color: #2c3e50;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        margin-bottom: 5px;
+    }
+
+    dd {
+        padding: 12px 15px;
+        margin: 0;
+        border-bottom: 1px solid #ecf0f1;
+        background-color: white;
+        border-radius: 4px;
+    }
+
+    .btn-group {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #ecf0f1;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 8px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-block;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+        text-decoration: none;
+        color: white;
+    }
+
+    .badge {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .bg-success {
+        background-color: #27ae60 !important;
+    }
+
+    .bg-warning {
+        background-color: #f39c12 !important;
+        color: white !important;
+    }
+
+    .bg-danger {
+        background-color: #e74c3c !important;
+        color: white !important;
+    }
+
+    .bg-info {
+        background-color: #17a2b8 !important;
+        color: white !important;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #3498db, transparent);
+        margin: 20px 0;
+    }
+</style>
+
+<div class="container">
+    <h1>👤 Detalles del Usuario</h1>
+
+    <div>
+        <h4>Información del Usuario</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <div class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.NombreCompleto)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.NombreCompleto)
+                </dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Correo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Correo)
+                </dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Clave)
+                </dt>
+                <dd class="col-sm-10">
+                    ••••••••
+                </dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Rol)
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.Rol == "Admin")
+                    {
+                        <span class="badge bg-danger">👑 @Model.Rol</span>
+                    }
+                    else if (Model.Rol == "Cliente")
+                    {
+                        <span class="badge bg-success">💼 @Model.Rol</span>
+                    }
+                    else if (Model.Rol == "Consultor")
+                    {
+                        <span class="badge bg-info">🔧 @Model.Rol</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">@Model.Rol</span>
+                    }
+                </dd>
+            </div>
+        </dl>
+    </div>
+
+    <div class="btn-group">
+        <a asp-action="Edit" asp-route-id="@Model?.IdUsuario" class="btn btn-primary">✏️ Editar</a>
+        <a asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+    </div>
 </div>

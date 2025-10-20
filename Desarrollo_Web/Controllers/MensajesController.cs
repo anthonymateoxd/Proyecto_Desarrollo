@@ -51,7 +51,7 @@ namespace DemonSlayer.Controllers
                               (p.ClienteId == userId ||
                                _context.Postulaciones.Any(post => post.ProyectoId == proyectoId &&
                                                                 post.ConsultorId == userId &&
-                                                                post.Aceptada)));
+                                                                post.Estado == "Aceptada")));
 
             if (!tieneAcceso)
             {
@@ -77,7 +77,6 @@ namespace DemonSlayer.Controllers
 
             return View(mensajes);
         }
-
         // Chat entre dos usuarios específicos
         public async Task<IActionResult> Chat(int destinatarioId)
         {

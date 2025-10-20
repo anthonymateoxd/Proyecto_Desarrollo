@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QxNZWljQzaDXPzBjLoHiJ20+0WayV+J6L2KpV47dkLo=",
+  "Hash": "9VkG2MBiI1ysdfwNKZNIYWxbI9HxTWt2GpfQMG3deh0=",
   "Source": "DemonSlayer",
   "BasePath": "_content/DemonSlayer",
   "Mode": "Default",
@@ -2603,7 +2603,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 15 Oct 2025 21:11:30 GMT"
+          "Value": "Mon, 20 Oct 2025 05:15:12 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2648,7 +2648,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 15 Oct 2025 21:11:30 GMT"
+          "Value": "Mon, 20 Oct 2025 05:15:12 GMT"
         },
         {
           "Name": "Cache-Control",

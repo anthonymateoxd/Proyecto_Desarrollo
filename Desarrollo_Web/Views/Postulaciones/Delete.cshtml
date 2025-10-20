@@ -4,48 +4,199 @@
     ViewData["Title"] = "Eliminar Postulación";
 }
 
-<h1>🗑️ Eliminar Postulación</h1>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
 
-<h3>¿Estás seguro de que quieres eliminar esta postulación?</h3>
-<div>
-    <h4>Postulación</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Monto:</dt>
-        <dd class="col-sm-10">Q @Model.MontoQ.ToString("N2")</dd>
+    .container {
+        max-width: 900px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        padding: 30px;
+        margin-top: 20px;
+    }
 
-        <dt class="col-sm-2">Propuesta:</dt>
-        <dd class="col-sm-10">@Model.Propuesta</dd>
+    h1 {
+        font-weight: bold;
+        color: #e74c3c;
+        border-bottom: 2px solid #e74c3c;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+    }
 
-        <dt class="col-sm-2">Fecha:</dt>
-        <dd class="col-sm-10">@Model.Fecha.ToString("dd/MM/yyyy HH:mm")</dd>
+    h3 {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
 
-        <dt class="col-sm-2">Proyecto ID:</dt>
-        <dd class="col-sm-10">@Model.ProyectoId</dd>
+    h4 {
+        color: #34495e;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
 
-        <dt class="col-sm-2">Consultor ID:</dt>
-        <dd class="col-sm-10">@Model.ConsultorId</dd>
+    .dl-horizontal {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 12px;
+        margin-bottom: 25px;
+    }
 
-        <dt class="col-sm-2">Estado:</dt>
-        <dd class="col-sm-10">
-            @if (Model.Aceptada)
-            {
-                <span class="badge bg-success">✅ Aceptada</span>
-            }
-            else
-            {
-                <span class="badge bg-warning">⏳ Pendiente</span>
-            }
-        </dd>
-    </dl>
+    .row {
+        display: contents;
+    }
 
-    <div class="alert alert-danger">
-        <strong>⚠️ Advertencia:</strong> Esta acción no se puede deshacer. La postulación será eliminada permanentemente.
+    dt {
+        font-weight: 600;
+        color: #2c3e50;
+        padding: 10px 15px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+    }
+
+    dd {
+        padding: 10px 15px;
+        margin: 0;
+        border-bottom: 1px solid #ecf0f1;
+        background-color: white;
+        border-radius: 4px;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 6px;
+        color: #721c24;
+        padding: 15px;
+        margin-bottom: 25px;
+    }
+
+        .alert-danger strong {
+            color: #721c24;
+        }
+
+    .btn {
+        padding: 10px 24px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        border: none;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+        text-decoration: none;
+        color: white;
+    }
+
+    .badge {
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .bg-success {
+        background-color: #27ae60 !important;
+    }
+
+    .bg-warning {
+        background-color: #f39c12 !important;
+        color: white !important;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #bdc3c7, transparent);
+        margin: 20px 0;
+    }
+
+    form {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #ecf0f1;
+    }
+</style>
+
+<div class="container">
+    <h1>🗑️ Eliminar Postulación</h1>
+
+    <h3>¿Estás seguro de que quieres eliminar esta postulación?</h3>
+
+    <div>
+        <h4>Información de la Postulación</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <div class="row">
+                <dt class="col-sm-2">Monto:</dt>
+                <dd class="col-sm-10">Q @Model.MontoQ.ToString("N2")</dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">Propuesta:</dt>
+                <dd class="col-sm-10">@Model.Propuesta</dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">Fecha:</dt>
+                <dd class="col-sm-10">@Model.Fecha.ToString("dd/MM/yyyy HH:mm")</dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">Proyecto ID:</dt>
+                <dd class="col-sm-10">@Model.ProyectoId</dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">Consultor ID:</dt>
+                <dd class="col-sm-10">@Model.ConsultorId</dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">Estado:</dt>
+                <dd class="col-sm-10">
+                    @if (Model.Estado == "Aceptada")
+                    {
+                        <span class="badge bg-success">✅ Aceptada</span>
+                    }
+                    else if (Model.Estado == "Rechazada")
+                    {
+                        <span class="badge bg-danger">❌ Rechazada</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">⏳ Pendiente</span>
+                    }
+                </dd>
+            </div>
+        </dl>
+
+        <div class="alert alert-danger">
+            <strong>⚠️ Advertencia:</strong> Esta acción no se puede deshacer. La postulación será eliminada permanentemente.
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="🗑️ Sí, Eliminar" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-secondary">← Cancelar</a>
+        </form>
     </div>
-
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="🗑️ Sí, Eliminar" class="btn btn-danger" />
-        <a asp-action="Index" class="btn btn-secondary">← Cancelar</a>
-    </form>
 </div>

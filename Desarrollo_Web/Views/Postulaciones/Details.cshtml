@@ -12,82 +12,259 @@
     bool esAdmin = User.IsInRole("Admin");
 }
 
-<h1>📋 Detalles de la Propuesta</h1>
-
-<div>
-    <h4>Propuesta</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MontoQ)
-        </dt>
-        <dd class="col-sm-10">
-            Q @Html.DisplayFor(model => model.MontoQ)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Propuesta)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Propuesta)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Fecha.ToString("dd/MM/yyyy HH:mm")
-        </dd>
-        <dt class="col-sm-2">
-            ID del Proyecto
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProyectoId)
-        </dd>
-        <dt class="col-sm-2">
-            Consultor
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ConsultorId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Aceptada)
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.Aceptada)
-            {
-                <span class="badge bg-success">✅ Aceptada</span>
-            }
-            else
-            {
-                <span class="badge bg-warning">⏳ Pendiente</span>
-            }
-        </dd>
-    </dl>
-</div>
-
-<div>
-    <!-- Solo el creador de la postulación o Admin puede editar -->
-    @if (esCreador || esAdmin)
-    {
-        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">✏️ Editar</a>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
     }
 
-    <!-- Botones adicionales para el cliente dueño del proyecto -->
-    @if (User.IsInRole("Cliente") && !esCreador)
-    {
-        if (!Model.Aceptada)
-        {
-        }
-        else
-        {
-            <span class="badge bg-success">Propuesta Aceptada</span>
-        }
-
-        <!-- Botón para chatear con el consultor -->
-        <a asp-controller="Mensajes" asp-action="Chat" asp-route-destinatarioId="@Model.ConsultorId"
-           class="btn btn-info">
-            💬 Contactar Consultor
-        </a>
+    .container {
+        max-width: 1000px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        padding: 30px;
+        margin-top: 20px;
     }
 
-    <a asp-controller="Proyectos" asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+    h1 {
+        font-weight: bold;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 12px;
+        margin-bottom: 25px;
+    }
+
+    h4 {
+        color: #34495e;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .dl-horizontal {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .row {
+        display: contents;
+    }
+
+    dt {
+        font-weight: 600;
+        color: #2c3e50;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        margin-bottom: 5px;
+    }
+
+    dd {
+        padding: 12px 15px;
+        margin: 0;
+        border-bottom: 1px solid #ecf0f1;
+        background-color: white;
+        border-radius: 4px;
+    }
+
+    .btn-group {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #ecf0f1;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 8px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-block;
+        border: none;
+    }
+
+    .btn-warning {
+        background-color: #f39c12;
+        color: white;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+
+    .btn-warning:hover {
+        background-color: #e67e22;
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-info:hover {
+        background-color: #138496;
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+        text-decoration: none;
+        color: white;
+    }
+
+    .badge {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .bg-success {
+        background-color: #27ae60 !important;
+    }
+
+    .bg-warning {
+        background-color: #f39c12 !important;
+        color: white !important;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #3498db, transparent);
+        margin: 20px 0;
+    }
+</style>
+
+<div class="container">
+    <h1>📋 Detalles de la Propuesta</h1>
+
+    <div>
+        <h4>Información de la Propuesta</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <div class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.MontoQ)
+                </dt>
+                <dd class="col-sm-10">
+                    Q @Html.DisplayFor(model => model.MontoQ)
+                </dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Propuesta)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Propuesta)
+                </dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Fecha.ToString("dd/MM/yyyy HH:mm")
+                </dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">
+                    ID del Proyecto
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ProyectoId)
+                </dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">
+                    Consultor
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.ConsultorId)
+                </dd>
+            </div>
+            <div class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Estado)
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.Estado == "Aceptada")
+                    {
+                        <span class="badge bg-success">✅ Aceptada</span>
+                    }
+                    else if (Model.Estado == "Rechazada")
+                    {
+                        <span class="badge bg-danger">❌ Rechazada</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">⏳ Pendiente</span>
+                    }
+                </dd>
+            </div>
+        </dl>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Panel informativo -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>ℹ️ Información de la Propuesta</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>ID de la Propuesta:</strong> @Model.Id</p>
+                    <p><strong>Consultor:</strong> @Model.ConsultorId</p>
+                    <p><strong>Proyecto:</strong> @Model.ProyectoId</p>
+                    <p>
+                        <strong>Estado:</strong>
+                        <span class="badge
+                        @(Model.Estado == "Aceptada" ? "bg-success" :
+                          Model.Estado == "Rechazada" ? "bg-danger" : "bg-warning")">
+                            @(Model.Estado == "Aceptada" ? "✅ Aceptada" :
+                                Model.Estado == "Rechazada" ? "❌ Rechazada" : "⏳ Pendiente")
+                        </span>
+                    </p>
+                    <p><strong>Fecha de Postulación:</strong> @Model.Fecha.ToString("dd/MM/yyyy HH:mm")</p>
+
+                    <div class="alert alert-info mt-3">
+                        <small>
+                            <strong>📋 Límites establecidos:</strong><br>
+                            • Monto: Q1.00 - Q9,999,999.99<br>
+                            • Propuesta: 2000 caracteres máximo
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group mt-4">
+        <!-- Solo el creador de la postulación o Admin puede editar -->
+        @if (esCreador || esAdmin)
+        {
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">✏️ Editar</a>
+        }
+
+        <!-- Botones adicionales para el cliente dueño del proyecto -->
+        @if (User.IsInRole("Cliente") && !esCreador)
+        {
+
+            <!-- Botón para chatear con el consultor -->
+            <a asp-controller="Mensajes" asp-action="Chat" asp-route-destinatarioId="@Model.ConsultorId"
+               class="btn btn-info">
+                💬 Contactar Consultor
+            </a>
+        }
+
+        <a asp-controller="Proyectos" asp-action="Index" class="btn btn-secondary">← Volver a la Lista</a>
+    </div>
 </div>

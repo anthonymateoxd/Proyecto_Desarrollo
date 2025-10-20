@@ -16,7 +16,10 @@ namespace DemonSlayer.Models
         public int ProyectoId { get; set; }
 
         public int ConsultorId { get; set; }
-
+        /*
         public bool Aceptada { get; set; } = false;
+        */
+        public string Estado { get; set; } = "Pendiente"; // "Pendiente", "Aceptada", "Rechazada"
+
     }
 }

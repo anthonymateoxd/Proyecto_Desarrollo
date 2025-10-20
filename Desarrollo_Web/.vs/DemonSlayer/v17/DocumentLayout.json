@@ -3,285 +3,180 @@
   "WorkspaceRootPath": "D:\\C#\\Proyecto D\\Desarrollo_Web\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\proyectos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\proyectos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\propuestasporproyecto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\propuestasporproyecto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\controllers\\postulacionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:controllers\\postulacionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\usuarios\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\usuarios\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\proyectos\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\proyectos\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\usuarios\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\usuarios\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\postulaciones\\propuestasporproyecto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\postulaciones\\propuestasporproyecto.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\mensajes\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\mensajes\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\views\\mensajes\\chat.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:views\\mensajes\\chat.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\controllers\\postulacionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:controllers\\postulacionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\controllers\\proyectoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:controllers\\proyectoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|d:\\c#\\proyecto d\\desarrollo_web\\controllers\\mensajescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C771F913-2B7C-450B-A441-56F0A3F340AB}|DemonSlayer.csproj|solutionrelative:controllers\\mensajescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 100,
+      "VerticalTabListWidth": 338,
       "DocumentGroups": [
         {
           "DockedWidth": 319,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PropuestasPorProyecto.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\PropuestasPorProyecto.cshtml",
-              "RelativeDocumentMoniker": "Views\\Postulaciones\\PropuestasPorProyecto.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\PropuestasPorProyecto.cshtml",
-              "RelativeToolTip": "Views\\Postulaciones\\PropuestasPorProyecto.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:31:35.474Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Delete.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Delete.cshtml",
-              "RelativeDocumentMoniker": "Views\\Postulaciones\\Delete.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Delete.cshtml",
-              "RelativeToolTip": "Views\\Postulaciones\\Delete.cshtml",
-              "ViewState": "AgIAABoAAAAAAAAAAAAYwC4AAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:25:13.554Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Postulaciones\\Index.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Index.cshtml",
-              "RelativeToolTip": "Views\\Postulaciones\\Index.cshtml",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAIwFgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:21:08.418Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\Postulaciones\\Details.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Details.cshtml",
-              "RelativeToolTip": "Views\\Postulaciones\\Details.cshtml",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAYwEEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:08:39.769Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PostulacionesController.cs",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\PostulacionesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\PostulacionesController.cs",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\PostulacionesController.cs",
-              "RelativeToolTip": "Controllers\\PostulacionesController.cs",
-              "ViewState": "AgIAAPEAAAAAAAAAAAAowCIBAAAJAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "UsuariosController.cs",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\UsuariosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsuariosController.cs",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\UsuariosController.cs",
+              "RelativeToolTip": "Controllers\\UsuariosController.cs",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAAAK0AAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T06:06:18.5Z",
+              "WhenOpened": "2025-10-20T21:33:49.124Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Create.cshtml",
-              "RelativeDocumentMoniker": "Views\\Postulaciones\\Create.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Create.cshtml",
-              "RelativeToolTip": "Views\\Postulaciones\\Create.cshtml",
-              "ViewState": "AgIAANMAAAAAAAAAAAAIwN4AAAABAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Usuarios\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Usuarios\\Index.cshtml",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Usuarios\\Index.cshtml",
+              "RelativeToolTip": "Views\\Usuarios\\Index.cshtml",
+              "ViewState": "AgIAAAIBAAAAAAAAAAAwwBUBAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T06:00:55.906Z",
+              "WhenOpened": "2025-10-20T21:29:49.496Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Usuarios\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Views\\Usuarios\\Edit.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Usuarios\\Edit.cshtml",
-              "RelativeToolTip": "Views\\Usuarios\\Edit.cshtml",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAcwF8AAABLAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Usuarios\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Usuarios\\Details.cshtml",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Usuarios\\Details.cshtml",
+              "RelativeToolTip": "Views\\Usuarios\\Details.cshtml",
+              "ViewState": "AgIAADIAAAAAAAAAAAAwwMYAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T05:43:46.36Z",
+              "WhenOpened": "2025-10-20T21:26:56.282Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Mensajes\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Views\\Mensajes\\Edit.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Mensajes\\Edit.cshtml",
-              "RelativeToolTip": "Views\\Mensajes\\Edit.cshtml",
+              "DocumentIndex": 3,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Postulaciones\\Details.cshtml",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Details.cshtml",
+              "RelativeToolTip": "Views\\Postulaciones\\Details.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T05:43:38.138Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Chat.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Mensajes\\Chat.cshtml",
-              "RelativeDocumentMoniker": "Views\\Mensajes\\Chat.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Mensajes\\Chat.cshtml",
-              "RelativeToolTip": "Views\\Mensajes\\Chat.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T05:40:10.906Z",
+              "WhenOpened": "2025-10-20T21:26:53.176Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "PropuestasPorProyecto.cshtml",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\PropuestasPorProyecto.cshtml",
+              "RelativeDocumentMoniker": "Views\\Postulaciones\\PropuestasPorProyecto.cshtml",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\PropuestasPorProyecto.cshtml",
+              "RelativeToolTip": "Views\\Postulaciones\\PropuestasPorProyecto.cshtml",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAAAM4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-20T21:12:30.809Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Mensajes\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Mensajes\\Edit.cshtml",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Mensajes\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Mensajes\\Edit.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAwwCcAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-20T21:06:36.167Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PostulacionesController.cs",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\PostulacionesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PostulacionesController.cs",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\PostulacionesController.cs",
+              "RelativeToolTip": "Controllers\\PostulacionesController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T21:06:31.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Postulaciones\\Index.cshtml",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Index.cshtml",
+              "RelativeToolTip": "Views\\Postulaciones\\Index.cshtml",
+              "ViewState": "AgIAAN8AAAAAAAAAAAAIwAgBAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-20T20:53:34.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Edit.cshtml",
               "RelativeDocumentMoniker": "Views\\Postulaciones\\Edit.cshtml",
               "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Postulaciones\\Edit.cshtml",
               "RelativeToolTip": "Views\\Postulaciones\\Edit.cshtml",
-              "ViewState": "AgIAAN8AAAAAAAAAAAAYwPcAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAAAGgAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T04:48:58.821Z",
+              "WhenOpened": "2025-10-20T20:30:07.799Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Proyectos\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Views\\Proyectos\\Edit.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Proyectos\\Edit.cshtml",
-              "RelativeToolTip": "Views\\Proyectos\\Edit.cshtml",
-              "ViewState": "AgIAACsBAAAAAAAAAAAYwEMBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T04:44:34.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "ProyectosController.cs",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\ProyectosController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProyectosController.cs",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\ProyectosController.cs",
-              "RelativeToolTip": "Controllers\\ProyectosController.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAYwGAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "MensajesController.cs",
+              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\MensajesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MensajesController.cs",
+              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Controllers\\MensajesController.cs",
+              "RelativeToolTip": "Controllers\\MensajesController.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAwwE4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T04:35:21.092Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Proyectos\\Create.cshtml",
-              "RelativeDocumentMoniker": "Views\\Proyectos\\Create.cshtml",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Views\\Proyectos\\Create.cshtml",
-              "RelativeToolTip": "Views\\Proyectos\\Create.cshtml",
-              "ViewState": "AgIAALwAAAAAAAAAAAAIwMgAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-19T04:34:21.15Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAUwEMAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-19T04:28:05.295Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAB/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-19T03:18:40.687Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Dockerfile",
-              "DocumentMoniker": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Dockerfile",
-              "RelativeDocumentMoniker": "Dockerfile",
-              "ToolTip": "D:\\C#\\Proyecto D\\Desarrollo_Web\\Dockerfile",
-              "RelativeToolTip": "Dockerfile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-10-19T03:18:09.673Z"
+              "WhenOpened": "2025-10-20T20:29:56.649Z"
             }
           ]
         },
