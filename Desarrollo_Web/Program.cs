@@ -60,12 +60,12 @@ public class Program
             pattern: "{controller=Home}/{action=Index}/{id?}");
             */
             pattern: "{controller=Accesso}/{action=Login}/{id?}");
-        /*
+        
         app.MapRazorPages();
         var scope = app.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         db.Database.Migrate();
-        */
+        
         app.Run();
     }
 }
