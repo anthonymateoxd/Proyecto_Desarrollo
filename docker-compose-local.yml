@@ -1,30 +1,24 @@
 version: '3.9'
 
 services:
-  proyecto-app:
+  demonslayer:
     build:
       context: ./Desarrollo_Web
       dockerfile: Dockerfile
-    restart: always
-    container_name: proyecto-app
+    container_name: demonslayer-app
     ports:
-      - '8080'
+      - '7211:8080'
     depends_on:
       - sqlserver
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FreeLancer;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
-
-      # - VIRTUAL_HOST=proyecto-app.fazttech.store
-      # - LETSENCRYPT_HOST=proyecto-app.fazttech.store
-      # - LETSENCRYPT_EMAIL=amateod2@miumg.edu.gt
-
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=Tanjiro;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     networks:
-      - web
+      - demon_network
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: proyecto-app-sql
+    container_name: demonslayer-sql
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=YourStrong!Passw0rd
@@ -33,11 +27,10 @@ services:
     volumes:
       - sql_data:/var/opt/mssql
     networks:
-      - web
+      - demon_network
 
 networks:
-  web:
-    external: true
+  demon_network:
 
 volumes:
   sql_data:
