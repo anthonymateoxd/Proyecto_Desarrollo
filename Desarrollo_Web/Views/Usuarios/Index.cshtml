@@ -216,12 +216,6 @@
 <div class="container">
     <h1>👥 Usuarios</h1>
 
-    @if (esAdmin)
-    {
-        <p>
-            <a asp-controller="Usuarios" asp-action="Create" class="btn btn-primary">➕ Crear Nuevo Usuario</a>
-        </p>
-    }
 
     <table class="table table-striped table-hover">
         <thead>
@@ -301,7 +295,7 @@
                             {
                                 <a asp-controller="Usuarios" asp-action="Delete" asp-route-id="@usuario.IdUsuario"
                                    class="btn btn-danger btn-sm"
-                                   onclick="return confirm('¿Estás seguro de que quieres eliminar a @usuario.NombreCompleto?')">
+                                   >
                                     🗑️ Eliminar
                                 </a>
                             }

@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DemonSlayer.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace DemonSlayer;
 
@@ -15,8 +16,10 @@ public class Program
 
         // Add services to the container.
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseNpgsql(connectionString)); // 👈 Aquí cambia UseSqlServer → UseNpgsql
+
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -60,12 +63,12 @@ public class Program
             pattern: "{controller=Home}/{action=Index}/{id?}");
             */
             pattern: "{controller=Accesso}/{action=Login}/{id?}");
-        
+        /*
         app.MapRazorPages();
         var scope = app.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         db.Database.Migrate();
-        
+        */
         app.Run();
     }
 }

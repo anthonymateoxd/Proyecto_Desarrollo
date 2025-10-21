@@ -26,7 +26,8 @@ public class ApplicationDbContext : IdentityDbContext
         {
             entity.HasKey(e => e.IdUsuario);
             entity.Property(e => e.IdUsuario)
-                .ValueGeneratedOnAdd();
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn(); // ✅ AGREGAR ESTO PARA POSTGRESQL
 
             entity.Property(e => e.NombreCompleto)
                 .HasMaxLength(50)
@@ -43,6 +44,7 @@ public class ApplicationDbContext : IdentityDbContext
             entity.Property(e => e.Rol)
                 .HasMaxLength(20)
                 .IsRequired();
+
         });
 
         // Proyecto
@@ -65,9 +67,13 @@ public class ApplicationDbContext : IdentityDbContext
             entity.Property(e => e.Estado)
                 .HasMaxLength(20)
                 .HasDefaultValue("Activo");
+
+            // ✅ AGREGAR ESTA CONFIGURACIÓN PARA FechaLimite
+            entity.Property(e => e.FechaLimite)
+                .HasColumnType("timestamp without time zone");
         });
 
-        // Postulacion
+        // Postulacion - CAMBIADO A NOW()
         modelBuilder.Entity<Postulacion>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -81,10 +87,11 @@ public class ApplicationDbContext : IdentityDbContext
                 .HasMaxLength(1000);
 
             entity.Property(e => e.Fecha)
-                .HasDefaultValueSql("GETDATE()");
+                 .HasColumnType("timestamp without time zone") // ✅ AGREGAR ESTO
+                 .HasDefaultValueSql("NOW()");
         });
 
-        // Mensaje
+        // Mensaje - CAMBIADO A NOW()
         modelBuilder.Entity<Mensaje>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -96,7 +103,8 @@ public class ApplicationDbContext : IdentityDbContext
                 .IsRequired();
 
             entity.Property(e => e.Fecha)
-                .HasDefaultValueSql("GETDATE()");
+                .HasColumnType("timestamp without time zone") // ✅ AGREGAR ESTO
+                .HasDefaultValueSql("NOW()");
         });
     }
 

@@ -11,7 +11,9 @@ namespace DemonSlayer.Models
         [MaxLength(1000)]
         public string Propuesta { get; set; }
 
-        public DateTime Fecha { get; set; } = DateTime.Now;
+        // CAMBIA ESTO: Especifica el Kind como UTC
+        public DateTime Fecha { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+
 
         public int ProyectoId { get; set; }
 

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\eferk\\OneDrive\\Escritorio\\Proyecto\\Proyecto_Desarrollo\\Desarrollo_Web\\DemonSlayer.csproj": {}
+    "D:\\C#\\Proyecto D\\Desarrollo_Web\\DemonSlayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\eferk\\OneDrive\\Escritorio\\Proyecto\\Proyecto_Desarrollo\\Desarrollo_Web\\DemonSlayer.csproj": {
+    "D:\\C#\\Proyecto D\\Desarrollo_Web\\DemonSlayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\eferk\\OneDrive\\Escritorio\\Proyecto\\Proyecto_Desarrollo\\Desarrollo_Web\\DemonSlayer.csproj",
+        "projectUniqueName": "D:\\C#\\Proyecto D\\Desarrollo_Web\\DemonSlayer.csproj",
         "projectName": "DemonSlayer",
-        "projectPath": "C:\\Users\\eferk\\OneDrive\\Escritorio\\Proyecto\\Proyecto_Desarrollo\\Desarrollo_Web\\DemonSlayer.csproj",
-        "packagesPath": "C:\\Users\\eferk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\eferk\\OneDrive\\Escritorio\\Proyecto\\Proyecto_Desarrollo\\Desarrollo_Web\\obj\\",
+        "projectPath": "D:\\C#\\Proyecto D\\Desarrollo_Web\\DemonSlayer.csproj",
+        "packagesPath": "C:\\Users\\antho\\.nuget\\packages\\",
+        "outputPath": "D:\\C#\\Proyecto D\\Desarrollo_Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\eferk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\antho\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -62,6 +62,12 @@
               "target": "Package",
               "version": "[8.0.14, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.14, )"
@@ -73,6 +79,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
             }
           },
           "imports": [
@@ -94,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

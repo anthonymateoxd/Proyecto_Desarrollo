@@ -15,7 +15,8 @@ namespace DemonSlayer.Models
 
         public decimal PresupuestoQ { get; set; }
 
-        public DateTime FechaLimite { get; set; }
+        // CAMBIA ESTO: Especifica el Kind como UTC o Unspecified
+        public DateTime FechaLimite { get; set; } = DateTime.SpecifyKind(DateTime.Now.AddDays(30), DateTimeKind.Utc);
 
         [MaxLength(20)]
         public string Estado { get; set; } = "Activo";

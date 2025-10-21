@@ -9,11 +9,9 @@ services:
     container_name: proyecto-app
     ports:
       - '8080'
-    depends_on:
-      - sqlserver
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FreeLancer;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Host=ep-dark-leaf-a4wyku7a-pooler.us-east-1.aws.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_VNyw07BLzOnP;Ssl Mode=Require;Trust Server Certificate=true
 
       - VIRTUAL_HOST=proyecto-app.fazttech.store
       - LETSENCRYPT_HOST=proyecto-app.fazttech.store
@@ -22,22 +20,6 @@ services:
     networks:
       - web
 
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: proyecto-app-sql
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong!Passw0rd
-    ports:
-      - '1433:1433'
-    volumes:
-      - sql_data:/var/opt/mssql
-    networks:
-      - web
-
 networks:
   web:
     external: true
-
-volumes:
-  sql_data:

@@ -9,7 +9,9 @@ namespace DemonSlayer.Models
         [Required]
         public string Texto { get; set; } = string.Empty; // Agrega valor por defecto
 
-        public DateTime Fecha { get; set; } = DateTime.Now;
+        // CAMBIA ESTO: Especifica el Kind como UTC
+        public DateTime Fecha { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+
 
         public int ProyectoId { get; set; }
         public bool Leido { get; set; }

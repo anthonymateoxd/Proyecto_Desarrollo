@@ -16,13 +16,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\DemonSlayer.u54pean4go.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-UodmZzrFmK0G0St3l3P/QUIwjft9TvmRN/KUxDNjWio="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1129"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022UodmZzrFmK0G0St3l3P/QUIwjft9TvmRN/KUxDNjWio=\u0022"},{"Name":"Last-Modified","Value":"Wed, 15 Oct 2025 21:22:26 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1129"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022UodmZzrFmK0G0St3l3P/QUIwjft9TvmRN/KUxDNjWio=\u0022"},{"Name":"Last-Modified","Value":"Tue, 21 Oct 2025 00:21:38 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/DemonSlayer/DemonSlayer.u54pean4go.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\DemonSlayer.u54pean4go.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"u54pean4go"},{"Name":"integrity","Value":"sha256-UodmZzrFmK0G0St3l3P/QUIwjft9TvmRN/KUxDNjWio="},{"Name":"label","Value":"_content/DemonSlayer/DemonSlayer.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1129"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022UodmZzrFmK0G0St3l3P/QUIwjft9TvmRN/KUxDNjWio=\u0022"},{"Name":"Last-Modified","Value":"Wed, 15 Oct 2025 21:22:26 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1129"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022UodmZzrFmK0G0St3l3P/QUIwjft9TvmRN/KUxDNjWio=\u0022"},{"Name":"Last-Modified","Value":"Tue, 21 Oct 2025 00:21:38 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/DemonSlayer/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
