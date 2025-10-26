@@ -1,0 +1,91 @@
+# version: '3.9'
+
+# services:
+#   pagina:
+#     build:
+#       context: ./Desarrollo_Web
+#       dockerfile: Dockerfile
+#     container_name: demon-pagina
+#     networks:
+#       - demon_network
+
+#   nginx:
+#     build:
+#       context: ./nginx-server
+#       dockerfile: Dockerfile
+#     container_name: demon-nginx
+#     ports:
+#       - '80:80' # 👈 cambio aquí
+#       - '443:443' # 👈 añadimos HTTPS
+
+#     depends_on:
+#       - pagina
+#     networks:
+#       - demon_network
+
+# networks:
+#   demon_network:
+#     driver: bridge
+version: '3.9'
+
+services:
+  # --- Reverse Proxy ---
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    container_name: demon-nginx-proxy
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs:ro
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true
+    networks:
+      - web
+
+  # --- Let's Encrypt Companion ---
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion:v1.12.1
+    container_name: demon-letsencrypt
+    restart: always
+    depends_on:
+      - nginx-proxy
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - web
+
+  # --- Tu aplicación .NET ---
+  pagina:
+    build:
+      context: ./Desarrollo_Web
+      dockerfile: Dockerfile
+    container_name: demon-pagina
+    expose:
+      - '80'
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      # 👇 Variables necesarias para nginx-proxy + Let's Encrypt
+      - VIRTUAL_HOST=app2.fazttech.store
+      - LETSENCRYPT_HOST=app2.fazttech.store
+      - LETSENCRYPT_EMAIL=amateod2@miumg.edu.gt
+    networks:
+      - web
+
+networks:
+  web:
+    external: false
+
+volumes:
+  certs:
+  html:
+  vhostd:
