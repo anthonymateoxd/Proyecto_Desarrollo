@@ -1,32 +1,4 @@
-# version: '3.9'
-
-# services:
-#   pagina:
-#     build:
-#       context: ./Desarrollo_Web
-#       dockerfile: Dockerfile
-#     container_name: demon-pagina
-#     networks:
-#       - demon_network
-
-#   nginx:
-#     build:
-#       context: ./nginx-server
-#       dockerfile: Dockerfile
-#     container_name: demon-nginx
-#     ports:
-#       - '80:80' # 👈 cambio aquí
-#       - '443:443' # 👈 añadimos HTTPS
-
-#     depends_on:
-#       - pagina
-#     networks:
-#       - demon_network
-
-# networks:
-#   demon_network:
-#     driver: bridge
-version: '3.9'
+# REMOVER esta línea: version: '3.9'
 
 services:
   # --- Reverse Proxy ---
@@ -83,7 +55,8 @@ services:
 
 networks:
   web:
-    external: false
+    external: true # 👈 Cambiar a external: true
+    name: web # 👈 Especificar el nombre
 
 volumes:
   certs:
