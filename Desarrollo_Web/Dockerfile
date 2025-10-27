@@ -19,8 +19,8 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Puerto donde correrá la app
-EXPOSE 80
+EXPOSE 8080
 
-ENV ASPNETCORE_URLS=http://+:80
+ENV ASPNETCORE_URLS=http://+:8080
 
 ENTRYPOINT ["dotnet", "DemonSlayer.dll"]
