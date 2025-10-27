@@ -1,19 +1,22 @@
+version: '3.8'
+
 services:
-  # --- Reverse Proxy ---
-  nginx-proxy:
+  # --- NGINX Reverse Proxy ---
+  nginx:
     build:
       context: ./nginx-server
+      dockerfile: Dockerfile
     container_name: nginx-proxy
-    restart: always
     ports:
       - '80:80'
-      - '443:443'
+      - '443:443' # Para cuando agregues SSL
+    volumes:
+      - ./ssl-certs:/etc/ssl/certs # Para certificados SSL
+      - ./ssl-private:/etc/ssl/private
+    depends_on:
+      - pagina
     networks:
       - web
-    volumes:
-      - certs:/etc/nginx/certs
-      - vhostd:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
 
   # --- Tu aplicación .NET ---
   pagina:
@@ -22,12 +25,9 @@ services:
       dockerfile: Dockerfile
     container_name: demon-pagina
     expose:
-      - '8080' # 👈 Cambiar a 8080
+      - '8080'
     environment:
-      - ASPNETCORE_URLS=http://+:8080 # 👈 Cambiar a 8080
-      - VIRTUAL_HOST=app2.fazttech.store
-      - LETSENCRYPT_HOST=app2.fazttech.store
-      - LETSENCRYPT_EMAIL=amateod2@miumg.edu.gt
+      - ASPNETCORE_URLS=http://+:8080
     networks:
       - web
 
@@ -35,8 +35,3 @@ networks:
   web:
     external: true
     name: web
-
-volumes:
-  certs:
-  html:
-  vhostd:
