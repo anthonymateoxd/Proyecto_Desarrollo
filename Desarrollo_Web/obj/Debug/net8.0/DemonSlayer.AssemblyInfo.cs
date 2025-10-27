@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DemonSlayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+93837ba21ccf577b745c9999f51b1194a916a321")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85008f36615b887ac3dab091339ae8075e499970")]
 [assembly: System.Reflection.AssemblyProductAttribute("DemonSlayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DemonSlayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
