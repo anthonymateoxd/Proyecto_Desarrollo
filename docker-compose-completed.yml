@@ -1,37 +1,30 @@
 version: '3.8'
 
 services:
-  # --- NGINX Reverse Proxy ---
+  app:
+    build:
+      context: ./Desarrollo_Web
+      dockerfile: Dockerfile
+    container_name: demonslayer-app
+    expose:
+      - 7211
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - demonslayer-network
+
   nginx:
     build:
       context: ./nginx-server
       dockerfile: Dockerfile
-    container_name: nginx-proxy
+    container_name: demonslayer-nginx
     ports:
-      - '80:80'
-      - '443:443' # Para cuando agregues SSL
-    volumes:
-      - ./ssl-certs:/etc/ssl/certs # Para certificados SSL
-      - ./ssl-private:/etc/ssl/private
+      - '8080' # Externa:8080 -> Interna:8080
     depends_on:
-      - pagina
+      - app
     networks:
-      - web
-
-  # --- Tu aplicación .NET ---
-  pagina:
-    build:
-      context: ./Desarrollo_Web
-      dockerfile: Dockerfile
-    container_name: demon-pagina
-    expose:
-      - '8080'
-    environment:
-      - ASPNETCORE_URLS=http://+:8080
-    networks:
-      - web
+      - demonslayer-network
 
 networks:
-  web:
-    external: true
-    name: web
+  demonslayer-network:
+    driver: bridge
